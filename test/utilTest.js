@@ -133,27 +133,27 @@ describe('util', function() {
 
   describe('#getHostname', function() {
 
-    it('the domain should be fetched from a URL with a filename', function() {
+    it('should fetch the domain from a URL with a filename', function() {
       var result = util.getHostname('https://www.sitespeed.io/with/a/path.jsp');
       assert.deepEqual(result, 'www.sitespeed.io');
     });
 
-    it('the domain should be fetched from a URL with a query string', function() {
+    it('should fetch the domain from a URL with a query string', function() {
       var result = util.getHostname('https://www.sitespeed.io/with/a/?apa=hepp&apa2=oj');
       assert.deepEqual(result, 'www.sitespeed.io');
     });
 
-    it('the domain should be fetched from a URL with #', function() {
+    it('should fetch the domain from a URL with #', function() {
       var result = util.getHostname('http://www.sitespeed.io/with/a/?apa=hepp&apa2=oj#yes');
       assert.deepEqual(result, 'www.sitespeed.io');
     });
 
-    it('the domain should be fetched from a URL with only the domain', function() {
+    it('should fetch the domain from a URL with only the domain', function() {
       var result = util.getHostname('http://www.sitespeed.io');
       assert.deepEqual(result, 'www.sitespeed.io');
     });
 
-    it('the domain should be fetched from a URL without a sub domain', function() {
+    it('should fetch the domain from a URL without a sub domain', function() {
       var result = util.getHostname('http://sitespeed.io');
       assert.deepEqual(result, 'sitespeed.io');
     });

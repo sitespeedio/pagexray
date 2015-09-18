@@ -1,0 +1,48 @@
+{
+  "name": "HARtoPageSummary",
+  "version": "0.0.1",
+  "description": "Convert your HAR file to a summary of a page",
+  "keywords": [
+    "performance",
+    "web",
+    "har",
+    "webperf",
+    "perfmatters"
+  ],
+  "homepage": "http://www.sitespeed.io",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Peter Hedenskog",
+    "url": "http://www.peterhedenskog.com"
+  },
+  "contributors": {
+    "name": "Tobias Lidskog"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sitespeedio/HARtoPageSummary.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sitespeedio/HARtoPageSummary/issues"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha",
+    "travis": "npm run lint && npm run test"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "eslint": "1.3.1",
+    "eslint-plugin-require-jsdoc": "^1.0.4",
+    "jsdoc": "^3.3.0-beta1",
+    "mocha": "2.*"
+  },
+  "main": "./lib/index.js",
+  "dependencies": {
+    "async": "1.3.0",
+    "fs-extra": "0.22.1"
+  }
+}

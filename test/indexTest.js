@@ -7,9 +7,19 @@ var assert = require('chai').assert,
 describe('index', function() {
 
   describe('#redirecting', function() {
-    var har = JSON.parse(fs.readFileSync('test/files/aftonbladet.se-redirecting-to-www.har'));
+    var page;
 
-    var page = hartopage.convert(har);
+    before(function(done) {
+      fs.readFile('test/files/aftonbladet.se-redirecting-to-www.har', 'utf-8', function(err, data) {
+        if (err) {
+          return done(err);
+        }
+        var har = JSON.parse(data);
+
+        page = hartopage.convert(har);
+        done();
+      });
+    });
 
     it('The domains should be the final destination of the redirect', function() {
       assert.strictEqual(page[0].baseDomain, 'www.aftonbladet.se');

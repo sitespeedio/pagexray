@@ -23,6 +23,7 @@ var har = // your HAR
 var pages = HARtoPageSummary.convert(har);
 ```
 ## Output
+All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
 
 ```json
 [

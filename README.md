@@ -122,37 +122,37 @@ var pages = HARtoPageSummary.convert(har);
        }
      },
      {
-  "type": "css",
-  "url": "http://a1.nyt.com/assets/homepage/20150828-152658/css/homepage/styles.css",
-  "size": 71447,
-  "expires": 31452117,
-  "status": 200,
-  "timeSinceLastModified": 1978334.978,
-  "httpVersion": "1.1",
-  "headers": {
-    "request": {
-      "host": "a1.nyt.com",
-      "connection": "keep-alive",
-      "accept": "text/css,*/*;q=0.1",
-      "user-agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36 PTST/231",
-      "referer": "http://www.nytimes.com/",
-      "accept-encoding": "gzip, deflate, sdch",
-      "accept-language": "en-US,en;q=0.8"
+       "type": "css",
+       "url": "http://a1.nyt.com/assets/homepage/20150828-152658/css/homepage/styles.css",
+       "size": 71447,
+       "expires": 31452117,
+       "status": 200,
+       "timeSinceLastModified": 1978334.978,
+       "httpVersion": "1.1",
+       "headers": {
+       "request": {
+          "host": "a1.nyt.com",
+          "connection": "keep-alive",
+          "accept": "text/css,*/*;q=0.1",
+          "user-agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36 PTST/231",
+          "referer": "http://www.nytimes.com/",
+          "accept-encoding": "gzip, deflate, sdch",
+          "accept-language": "en-US,en;q=0.8"
+        },
+        "response": {
+          "server": "nginx",
+          "content-type": "text/css",
+          "last-modified": "Fri, 28 Aug 2015 20:03:44 GMT",
+          "vary": "Accept-Encoding",
+          "content-encoding": "gzip",
+          "cache-control": "public, max-age=31452117",
+          "expires": "Sat, 27 Aug 2016 20:26:53 GMT",
+          "date": "Sat, 29 Aug 2015 19:44:56 GMT",
+          "content-length": "71133",
+          "connection": "keep-alive"
+          }
+        }
     },
-    "response": {
-      "server": "nginx",
-      "content-type": "text/css",
-      "last-modified": "Fri, 28 Aug 2015 20:03:44 GMT",
-      "vary": "Accept-Encoding",
-      "content-encoding": "gzip",
-      "cache-control": "public, max-age=31452117",
-      "expires": "Sat, 27 Aug 2016 20:26:53 GMT",
-      "date": "Sat, 29 Aug 2015 19:44:56 GMT",
-      "content-length": "71133",
-      "connection": "keep-alive"
-      }
-    }
-  },
      ...
    ]
   }

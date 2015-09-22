@@ -1,9 +1,9 @@
 'use strict';
 
 var assert = require('chai').assert,
-    pluck = require('lodash.pluck'),
-    parseTestHar = require('./helpers/testUtils').parseTestHar,
-    hartopage = require('../lib/index');
+  pluck = require('lodash.pluck'),
+  parseTestHar = require('./helpers/testUtils').parseTestHar,
+  hartopage = require('../lib/index');
 
 describe('index', function() {
 
@@ -44,6 +44,6 @@ describe('index', function() {
       var convertedSummary = hartopage.convert(sourceHar);
       var exectedUrls = ['http://www.nytimes.com', 'http://www.nytimes.com'];
       assert.deepEqual(pluck(convertedSummary, 'url'), exectedUrls);
-    })
-  })
+    });
+  });
 });

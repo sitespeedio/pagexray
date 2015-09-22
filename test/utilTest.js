@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('chai').assert,
-    util = require('../lib/util'),
+  util = require('../lib/util'),
   forEach = require('lodash.foreach');
 
 describe('util', function() {

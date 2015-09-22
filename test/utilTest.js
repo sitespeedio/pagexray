@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('chai').assert,
-  util = require('../lib/util'),
+    util = require('../lib/util'),
   forEach = require('lodash.foreach');
 
 describe('util', function() {
@@ -22,41 +22,29 @@ describe('util', function() {
       forEach(mimes, function(mime) {
         it('should categorize ' + mime + ' as ' + type, function() {
           var result = util.getContentType(mime);
-          assert.deepEqual(result, type);
+          assert.equal(result, type);
         });
       });
     });
   });
 
   describe('#flattenHeaders', function() {
-    // setup a HAR header structure
-    var headers = [{
-      name: 'header1',
-      value: 'value1'
-    }, {
-      name: 'header2',
-      value: 'value2'
-    }, {
-      name: 'HEADER3',
-      value: 'value3'
-    } ];
+    it('should flatten HAR headers', function() {
+      var harHeaders = [{
+        name: 'header1',
+        value: 'value1'
+      }, {
+        name: 'header2',
+        value: 'value2'
+      }, {
+        name: 'HEADER3',
+        value: 'value3'
+      } ];
+      var expected = {'header1': 'value1', 'header2': 'value2', 'header3': 'value3'};
 
-
-    var myFlattenHeaders = util.flattenHeaders(headers);
-
-    it('the name of the key should be removed when the headers are flatten', function() {
-      assert.isUndefined(myFlattenHeaders.name);
+      var flattenedHeaders = util.flattenHeaders(harHeaders);
+      assert.deepEqual(flattenedHeaders, expected);
     });
-
-    it('the name of the value should be removed when the headers are flatten', function() {
-      assert.isUndefined(myFlattenHeaders.value);
-    });
-
-    it('all header names should be lowercase when flattend', function() {
-      assert.strictEqual(myFlattenHeaders.header3, 'value3');
-      assert.isUndefined(myFlattenHeaders.HEADER3);
-    });
-
   });
 
   describe('#getHostname', function() {

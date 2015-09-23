@@ -4,7 +4,7 @@ Convert a HAR to a summary of a page, more describing what's important of a web 
 ## What do we collect?
  * The size and the number of requests per content type
  * The size and requests per domain
- * The number of requests per response
+ * The number of requests per response code
  * The base domain and the httpVersion used for the base asset (the main HTML document)
  * All assets (responses) with the following data: type, url, size, expires (a normalized expires convering max-age/expires to just expires in seconds), status (response code), timeSinceLastModified (using the last modified field in the reponse header and normalizing to seconds), httpVersion and all request and response headers.
 

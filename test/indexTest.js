@@ -40,9 +40,9 @@ describe('index', function() {
     });
 
     // Skip since it doesn't work at the moment, convert is keeping state between invocations.
-    it.skip('should convert urls', function() {
+    it('should convert urls', function() {
       var convertedSummary = hartopage.convert(sourceHar);
-      var exectedUrls = ['http://www.nytimes.com', 'http://www.nytimes.com'];
+      var exectedUrls = ['http://www.nytimes.com/', 'http://www.nytimes.com/'];
       assert.deepEqual(pluck(convertedSummary, 'url'), exectedUrls);
     });
   });

@@ -1,5 +1,5 @@
 {
-  "name": "HARtoPageSummary",
+  "name": "snufkin",
   "version": "0.0.1",
   "description": "Convert your HAR file to a summary of a page",
   "keywords": [
@@ -20,10 +20,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:sitespeedio/HARtoPageSummary.git"
+    "url": "git@github.com:sitespeedio/snufkin.git"
   },
   "bugs": {
-    "url": "https://github.com/sitespeedio/HARtoPageSummary/issues"
+    "url": "https://github.com/sitespeedio/snufkin/issues"
   },
   "scripts": {
     "lint": "eslint .",

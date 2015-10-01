@@ -1,4 +1,4 @@
-# HARtoPageSummary
+# Snufkin
 Convert a HAR to a summary of a page, more describing what's important of a web page. This is a part of the coming sitespeed.io 4.0.
 
 ## What do we collect?
@@ -10,24 +10,24 @@ Convert a HAR to a summary of a page, more describing what's important of a web 
 
 ## Install
 ```bash
-npm install HARtoPageSummary -g
+npm install snufkin -g
 ```
 
 ## Run
 ```bash
-HARtoPageSummary /path/to/my.har
+snufkin /path/to/my.har
 ```
 
 Or if you want to prettify the HAR
 ```bash
-HARtoPageSummary --pretty /path/to/my.har
+snufkin --pretty /path/to/my.har
 ```
 
 If you want to use it inside your code, use it like this:
 ```node
-var HARtoPageSummary = require('HARtoPageSummary'),
+var snufkin= require('snufkin'),
 var har = // your HAR
-var pages = HARtoPageSummary.convert(har);
+var pages = snufkin.convert(har);
 ```
 ## Output
 All sizes are in bytes. Expires and timeSinceLastModified are in seconds.

@@ -1,4 +1,7 @@
 # Snufkin
+
+[![Build status][travis-image]][travis-url]
+
 Convert a HAR to a summary of a page, describing what's important of a web page in a performance perspective to a page. This is a part of the coming sitespeed.io 4.0 but you can use it standalone.
 
 ## What do we collect?
@@ -98,3 +101,6 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
 ]
 
 ```
+
+[travis-image]: https://img.shields.io/travis/sitespeedio/snufkin.svg?style=flat-square
+[travis-url]: https://travis-ci.org/sitespeedio/snufkin

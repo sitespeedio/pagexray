@@ -1,9 +1,13 @@
 language: node_js
 node_js:
 - '4.0'
+- '5.0'
+
+before_script:
+  - npm install grunt-cli -g
 
 script:
-- npm run-script travis
+- grunt
 
 notifications:
   slack:

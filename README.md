@@ -1,4 +1,4 @@
-# HAR to Page
+# Snufkin
 Convert a HAR to a summary of a page, describing what's important of a web page in a performance perspective to a page. This is a part of the coming sitespeed.io 4.0 but you can use it standalone.
 
 ## What do we collect?
@@ -22,12 +22,16 @@ Or if you want to prettify the HAR
 ```bash
 snufkin --pretty /path/to/my.har
 ```
+And if you want to get info per request/response:
+```bash
+snufkin -includeAssets /path/to/my.har
+```
 
-If you want to use it inside your code, use it like this:
+If you want to use it in node, use it like this:
 ```node
-var snufkin= require('snufkin'),
-var har = // your HAR
-var pages = snufkin.convert(har);
+let snufkin= require('snufkin');
+let har = // your HAR
+let pages = snufkin.convert(har);
 ```
 ## Output
 All sizes are in bytes. Expires and timeSinceLastModified are in seconds.

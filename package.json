@@ -1,6 +1,6 @@
 {
   "name": "snufkin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Convert your HAR file to a summary of a page",
   "keywords": [
     "performance",
@@ -28,7 +28,7 @@
   "scripts": {
     "lint": "node_modules/eslint/bin/eslint.js .",
     "test": "node_modules/mocha/bin/mocha",
-     "travis": "npm run lint && npm run test"
+    "travis": "npm run lint && npm run test"
   },
   "engines": {
     "node": ">=4.0.0"

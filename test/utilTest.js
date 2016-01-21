@@ -11,10 +11,12 @@ describe('util', function() {
       'doc': ['text/plain', 'text/html', 'text/html; charset=utf-8'],
       'js': ['text/javascript', 'application/x-javascript; charset=utf-8'],
       'css': ['text/css'],
-      'image': ['image/png', 'image/jpg', 'image/gif', 'image/x-icon', 'image/svg+xml', 'image/webp'],
+      'image': ['image/png', 'image/jpg', 'image/gif', 'image/svg+xml', 'image/webp'],
       'font': ['application/font-woff', 'application/font-sfnt', 'application/x-font-opentype',
-        'application/x-font-ttf'],
+        'application/x-font-ttf'
+      ],
       'flash': ['application/x-shockwave-flash'],
+      'favicon': ['image/x-icon', 'image/vnd.microsoft.icon'],
       'unknown': ['application/my-own-type']
     };
 
@@ -39,8 +41,12 @@ describe('util', function() {
       }, {
         name: 'HEADER3',
         value: 'value3'
-      } ];
-      var expected = {'header1': 'value1', 'header2': 'value2', 'header3': 'value3'};
+      }];
+      var expected = {
+        'header1': 'value1',
+        'header2': 'value2',
+        'header3': 'value3'
+      };
 
       var flattenedHeaders = util.flattenHeaders(harHeaders);
       assert.deepEqual(flattenedHeaders, expected);

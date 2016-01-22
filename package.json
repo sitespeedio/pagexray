@@ -35,10 +35,10 @@
   },
   "devDependencies": {
     "chai": "^3.3.0",
-    "eslint": "1.7.2",
+    "eslint": "^1.10.3",
     "eslint-plugin-require-jsdoc": "^1.0.4",
     "jsdoc": "^3.3.0-beta1",
-    "lodash.foreach": "^3.0.3",
+    "lodash.foreach": "^4.0.0",
     "lodash.pluck": "^3.1.2",
     "mocha": "2.*"
   },

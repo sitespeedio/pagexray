@@ -7,25 +7,6 @@ var assert = require('chai').assert,
 
 describe('index', function() {
 
-  describe('#redirecting', function() {
-    var page;
-
-    before(function(done) {
-      parseTestHar('aftonbladet.se-redirecting-to-www.har', function(err, har) {
-        if (err) {
-          return done(err);
-        }
-        page = hartopage.convert(har);
-        done();
-      });
-    });
-
-    it('The domains should be the final destination of the redirect', function() {
-      assert.strictEqual(page[0].baseDomain, 'www.aftonbladet.se');
-    });
-
-  });
-
   describe('#convert', function() {
     var sourceHar;
 

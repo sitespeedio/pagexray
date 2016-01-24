@@ -42,75 +42,56 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
 ```json
 [
   {
-    "url": "http://www.nytimes.com/",
-    "baseDomain": "www.nytimes.com",
-    "size": 2013204,
-    "requests": 227,
+    "url": "https://run.sitespeed.io/",
+    "finalUrl": "https://run.sitespeed.io/",
+    "baseDomain": "run.sitespeed.io",
+    "documentRedirects": 0,
+    "transferSize": 102069,
+    "contentSize": 102069,
+    "headerSize": 6480,
+    "requests": 11,
+    "httpVersion": "HTTP/2.0",
     "doc": {
-      "size": 42213,
-      "requests": 14
+      "transferSize": 12311,
+      "contentSize": 12311,
+      "headerSize": 582,
+      "requests": 1
     },
     "domains": {
-      "www.nytimes.com": {
-        "requests": 24,
-        "size": 90436
+      "run.sitespeed.io": {
+        "requests": 9,
+        "transferSize": 75749,
+        "contentSize": 75749,
+        "headerSize": 5788
       },
-      ...
+      "www.google-analytics.com": {
+        "requests": 2,
+        "transferSize": 26320,
+        "contentSize": 26320,
+        "headerSize": 692
+      }
     },
     "responseCodes": {
-      "101": 2,
-      "200": 260,
-      "204": 17,
-      "206": 1,
-      "302": 42,
-      "303": 1,
-      "304": 3,
-      "307": 1,
-      "503": 1
-    },  
-    "css": {
-      "transferSize": 73270,
-      "contentSize": 73270,
-      "headerSize": 1460,
-      "requests": 3
+      "200": 11
     },
     "js": {
-      "transferSize": 831734,
-      "contentSize": 831734,
-      "headerSize": 1460,
-      "requests": 53
+      "transferSize": 26285,
+      "contentSize": 26285,
+      "headerSize": 347,
+      "requests": 1
     },
     "image": {
-      "transferSize": 744820,
-      "contentSize": 744820,
-      "headerSize": 1460,
-      "requests": 103
+      "transferSize": 56955,
+      "contentSize": 56955,
+      "headerSize": 4907,
+      "requests": 8
     },
-    "font": {
-      "transferSize": 304000,
-      "contentSize": 304000,
-      "headerSize": 1460,
-      "requests": 11
-    },
-    "json": {
-      "transferSize": 3828,
-      "contentSize": 3828,
-      "headerSize": 1460,
-      "requests": 2
-    },
-    "unknown": {
-      "transferSize": 84677,
-      "contentSize": 84677,
-      "headerSize": 0,
-      "requests": 2
-    },
-    "flash": {
-      "transferSize": 4798,
-      "contentSize": 4798,
-      "headerSize": 1461,
-      "requests": 2
+    "favicon": {
+      "transferSize": 6518,
+      "contentSize": 6518,
+      "headerSize": 644,
+      "requests": 1
     }
-   ]
   }
 ]
 

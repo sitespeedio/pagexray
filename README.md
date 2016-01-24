@@ -69,31 +69,45 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
       "503": 1
     },  
     "css": {
-      "size": 73237,
+      "transferSize": 73270,
+      "contentSize": 73270,
+      "headerSize": 1460,
       "requests": 3
     },
     "js": {
-      "size": 831734,
+      "transferSize": 831734,
+      "contentSize": 831734,
+      "headerSize": 1460,
       "requests": 53
     },
     "image": {
-      "size": 744820,
+      "transferSize": 744820,
+      "contentSize": 744820,
+      "headerSize": 1460,
       "requests": 103
     },
     "font": {
-      "size": 304513,
+      "transferSize": 304000,
+      "contentSize": 304000,
+      "headerSize": 1460,
       "requests": 11
     },
     "json": {
-      "size": 3828,
+      "transferSize": 3828,
+      "contentSize": 3828,
+      "headerSize": 1460,
       "requests": 2
     },
     "unknown": {
-      "size": 84677,
+      "transferSize": 84677,
+      "contentSize": 84677,
+      "headerSize": 0,
       "requests": 2
     },
     "flash": {
-      "size": 4798,
+      "transferSize": 4798,
+      "contentSize": 4798,
+      "headerSize": 1461,
       "requests": 2
     }
    ]

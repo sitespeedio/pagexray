@@ -12,7 +12,7 @@ describe('Check content types', function() {
       assert.strictEqual(result[0].js.requests, 8, 'We couldnt get the right number of js');
       assert.strictEqual(result[0].css.requests, 2, 'We couldnt get the right number of css');
       assert.strictEqual(result[0].image.requests, 5, 'We couldnt get the right number of image');
-      assert.strictEqual(result[0].unknown.requests, 2, 'We couldnt get the right number of unknown');
+      assert.strictEqual(result[0].others.requests, 2, 'We couldnt get the right number of others');
     });
   });
 });

@@ -17,7 +17,7 @@ describe('util', function() {
       ],
       'flash': ['application/x-shockwave-flash'],
       'favicon': ['image/x-icon', 'image/vnd.microsoft.icon'],
-      'unknown': ['application/my-own-type']
+      'others': ['application/my-own-type']
     };
 
     forEach(typeToMimeMapping, function(mimes, type) {

@@ -18,14 +18,15 @@ describe('Verify HTTP versions', function() {
     });
   });
 
-  it('We should be able to identify SPDY from Firefox');
+  it('We should be able to identify SPDY from Firefox but the HAR files generated from Firefox says HTTP/1');
+
   /*
   it('We should be able to identify SPDY from Firefox', function() {
-    return har.getPages('test/files/http/spdy-firefox.har').then((result) => {
+    return har.getPages('test/files/http/spdy-firefox2.har').then((result) => {
       assert.strictEqual(result[0].httpVersion, 'SPDY/3.1');
     });
   });
-  */
+*/
 
   it('We should be able to identify SPDY from Chrome', function() {
     return har.getPages('test/files/http/spdy-chrome.har').then((result) => {

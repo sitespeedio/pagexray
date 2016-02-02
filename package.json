@@ -1,6 +1,6 @@
 {
   "name": "snufkin",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Convert your HAR file to a summary of a page",
   "keywords": [
     "performance",

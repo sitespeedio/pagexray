@@ -51,11 +51,31 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
     "headerSize": 6480,
     "requests": 11,
     "httpVersion": "HTTP/2.0",
-    "doc": {
-      "transferSize": 12311,
-      "contentSize": 12311,
-      "headerSize": 582,
-      "requests": 1
+    "contentTypes": {
+      "doc": {
+        "transferSize": 12311,
+        "contentSize": 12311,
+        "headerSize": 582,
+        "requests": 1
+      },
+      "js": {
+        "transferSize": 26285,
+        "contentSize": 26285,
+        "headerSize": 347,
+        "requests": 1
+      },
+      "image": {
+        "transferSize": 56955,
+        "contentSize": 56955,
+        "headerSize": 4907,
+        "requests": 8
+      },
+      "favicon": {
+        "transferSize": 6518,
+        "contentSize": 6518,
+        "headerSize": 644,
+        "requests": 1
+      }
     },
     "domains": {
       "run.sitespeed.io": {
@@ -73,24 +93,6 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
     },
     "responseCodes": {
       "200": 11
-    },
-    "js": {
-      "transferSize": 26285,
-      "contentSize": 26285,
-      "headerSize": 347,
-      "requests": 1
-    },
-    "image": {
-      "transferSize": 56955,
-      "contentSize": 56955,
-      "headerSize": 4907,
-      "requests": 8
-    },
-    "favicon": {
-      "transferSize": 6518,
-      "contentSize": 6518,
-      "headerSize": 644,
-      "requests": 1
     }
   }
 ]

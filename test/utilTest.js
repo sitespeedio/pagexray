@@ -30,29 +30,6 @@ describe('util', function() {
     });
   });
 
-  describe('#flattenHeaders', function() {
-    it('should flatten HAR headers', function() {
-      var harHeaders = [{
-        name: 'header1',
-        value: 'value1'
-      }, {
-        name: 'header2',
-        value: 'value2'
-      }, {
-        name: 'HEADER3',
-        value: 'value3'
-      }];
-      var expected = {
-        'header1': 'value1',
-        'header2': 'value2',
-        'header3': 'value3'
-      };
-
-      var flattenedHeaders = util.flattenHeaders(harHeaders);
-      assert.deepEqual(flattenedHeaders, expected);
-    });
-  });
-
   describe('#getHostname', function() {
 
     it('should fetch the domain from a URL with a filename', function() {

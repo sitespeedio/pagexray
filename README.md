@@ -93,6 +93,20 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
     },
     "responseCodes": {
       "200": 11
+    },
+    "expireStats": {
+      "min": "0",
+      "p10": "0",
+      "p90": "31536000",
+      "p99": "31536000",
+      "max": "31536000"
+    },
+    "lastModifiedStats": {
+      "min": "7894266",
+      "p10": "11214662",
+      "p90": "559282522",
+      "p99": "559282522",
+      "max": "559282522"
     }
   }
 ]

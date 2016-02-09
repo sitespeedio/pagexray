@@ -1,12 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * @fileoverview CLI index object.
- * @author Peter Hedenskog
- * @copyright (c) 2015, Peter Hedenskog, Tobias Lidskog.
- * Released under the Apache 2.0 License.
- */
-
 'use strict';
 
 var snufkin = require('../lib/index'),

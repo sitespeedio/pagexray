@@ -10,7 +10,7 @@
     "perfmatters"
   ],
   "homepage": "http://www.sitespeed.io",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "author": {
     "name": "Peter Hedenskog",
     "url": "http://www.peterhedenskog.com"

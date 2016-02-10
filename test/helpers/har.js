@@ -11,7 +11,7 @@ Promise.promisifyAll(fs);
 
 module.exports = {
   getPages: function(harFile) {
-    return fs.readFileAsync(path.resolve(harFile))
+    return fs.readFileAsync(path.resolve(__dirname, '..', '..', harFile))
       .then(JSON.parse)
       .then(hartopage.convert)
       .catch((e) => {

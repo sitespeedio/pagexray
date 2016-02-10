@@ -19,6 +19,7 @@ module.exports = {
       })
       .catch((e) => {
         console.error('Error fetching page(s)', e);
+        throw e;
       })
   }
 };

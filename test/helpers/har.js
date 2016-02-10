@@ -14,9 +14,6 @@ module.exports = {
     return fs.readFileAsync(path.resolve(harFile))
       .then(JSON.parse)
       .then(hartopage.convert)
-      .then((pages) => {
-        return pages;
-      })
       .catch((e) => {
         console.error('Error fetching page(s)', e);
         throw e;

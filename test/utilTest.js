@@ -8,12 +8,15 @@ describe('util', function() {
 
   describe('#getContentType', function() {
     var typeToMimeMapping = {
-      'doc': ['text/plain', 'text/html', 'text/html; charset=utf-8'],
-      'js': ['text/javascript', 'application/x-javascript; charset=utf-8'],
+      'html': ['text/html', 'text/html; charset=utf-8'],
+      'plain': ['text/plain'],
+      'javascript': ['text/javascript', 'application/x-javascript; charset=utf-8'],
       'css': ['text/css'],
-      'image': ['image/png', 'image/jpg', 'image/gif', 'image/svg+xml', 'image/webp'],
+      'image': ['image/png', 'image/jpg', 'image/gif', 'image/webp'],
+      'svg': ['image/svg+xml'],
       'font': ['application/font-woff', 'application/font-sfnt', 'application/x-font-opentype',
-        'application/x-font-ttf'
+        'application/x-font-ttf', 'application/vnd.ms-fontobject', 'application/x-font-ttf',
+        'application/x-font-opentype'
       ],
       'flash': ['application/x-shockwave-flash'],
       'favicon': ['image/x-icon', 'image/vnd.microsoft.icon'],

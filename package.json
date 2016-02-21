@@ -31,7 +31,7 @@
     "travis": "npm run lint && npm run test"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=4.3.0"
   },
   "devDependencies": {
     "bluebird": "3.0.6",

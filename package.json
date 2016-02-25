@@ -26,8 +26,8 @@
     "url": "https://github.com/sitespeedio/snufkin/issues"
   },
   "scripts": {
-    "lint": "node_modules/eslint/bin/eslint.js .",
-    "test": "node_modules/mocha/bin/mocha",
+    "lint": "eslint .",
+    "test": "mocha",
     "travis": "npm run lint && npm run test"
   },
   "engines": {

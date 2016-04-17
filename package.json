@@ -1,7 +1,7 @@
 {
-  "name": "snufkin",
-  "version": "0.3.8",
-  "description": "Convert your HAR file to a summary of a page",
+  "name": "pagexray",
+  "version": "0.4.0",
+  "description": "Xray your HAR file and know all about the page",
   "keywords": [
     "performance",
     "web",
@@ -20,10 +20,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:sitespeedio/snufkin.git"
+    "url": "git@github.com:sitespeedio/pagexray.git"
   },
   "bugs": {
-    "url": "https://github.com/sitespeedio/snufkin/issues"
+    "url": "https://github.com/sitespeedio/pagexray/issues"
   },
   "scripts": {
     "lint": "eslint .",

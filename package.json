@@ -1,6 +1,6 @@
 {
   "name": "pagexray",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Xray your HAR file and know all about the page",
   "keywords": [
     "performance",

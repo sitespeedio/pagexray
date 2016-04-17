@@ -1,4 +1,4 @@
-# Snufkin
+# PageXray
 
 [![Build status][travis-image]][travis-url]
 
@@ -13,28 +13,28 @@ Convert a HAR to a summary of a page, describing what's important of a web page 
 
 ## Install
 ```bash
-npm install snufkin -g
+npm install pagexray -g
 ```
 
 ## Run
 ```bash
-snufkin /path/to/my.har
+pagexray /path/to/my.har
 ```
 
 Or if you want to prettify the HAR
 ```bash
-snufkin --pretty /path/to/my.har
+pagexray --pretty /path/to/my.har
 ```
 And if you want to get info per request/response:
 ```bash
-snufkin -includeAssets /path/to/my.har
+pagexray -includeAssets /path/to/my.har
 ```
 
 If you want to use it in node, use it like this:
 ```node
-let snufkin= require('snufkin');
+let pagexray = require('pagexray');
 let har = // your HAR
-let pages = snufkin.convert(har);
+let pages = pagexray.convert(har);
 ```
 ## Output
 All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
@@ -52,13 +52,13 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
     "requests": 11,
     "httpVersion": "HTTP/2.0",
     "contentTypes": {
-      "doc": {
+      "html": {
         "transferSize": 12311,
         "contentSize": 12311,
         "headerSize": 582,
         "requests": 1
       },
-      "js": {
+      "javascript": {
         "transferSize": 26285,
         "contentSize": 26285,
         "headerSize": 347,
@@ -113,5 +113,5 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
 
 ```
 
-[travis-image]: https://img.shields.io/travis/sitespeedio/snufkin.svg?style=flat-square
-[travis-url]: https://travis-ci.org/sitespeedio/snufkin
+[travis-image]: https://img.shields.io/travis/sitespeedio/pagexray.svg?style=flat-square
+[travis-url]: https://travis-ci.org/sitespeedio/pagexray

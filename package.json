@@ -27,6 +27,10 @@
   "bugs": {
     "url": "https://github.com/sitespeedio/pagexray/issues"
   },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "scripts": {
     "lint": "eslint .",
     "test": "mocha",

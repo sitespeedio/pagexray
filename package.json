@@ -30,6 +30,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "mocha",
+    "jsdoc": "jsdoc lib/* -d dist/doc",
     "travis": "npm run lint && npm run test"
   },
   "engines": {

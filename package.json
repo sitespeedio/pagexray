@@ -37,14 +37,13 @@
     "node": ">=4.3.0"
   },
   "devDependencies": {
-    "bluebird": "3.3.4",
+    "bluebird": "^3.3.5",
     "chai": "^3.3.0",
-    "eslint": "^2.2.0",
-    "eslint-plugin-require-jsdoc": "^1.0.4",
+    "eslint": "^2.8.0",
     "jsdoc": "^3.4.0",
-    "lodash.foreach": "^4.0.0",
+    "lodash.foreach": "^4.2.0",
     "lodash.pluck": "^3.1.2",
-    "mocha": "2.*"
+    "mocha": "^2.4.5"
   },
   "main": "./lib/index.js",
   "bin": "./bin/index.js",

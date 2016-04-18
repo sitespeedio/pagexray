@@ -1,5 +1,13 @@
 # CHANGELOG - PageXray
 
+version 0.6.0 - 2016-04-18
+------------------------
+### Fixed
+* Fix content type matching for json.
+
+### Changed
+* Renamed 'others' content type to 'other' for consistency.
+
 version 0.5.0 - 2016-04-17
 ------------------------
 ### Changed

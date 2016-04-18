@@ -15,9 +15,11 @@
     "name": "Peter Hedenskog",
     "url": "http://www.peterhedenskog.com"
   },
-  "contributors": {
-    "name": "Tobias Lidskog"
-  },
+  "contributors": [
+    {
+      "name": "Tobias Lidskog"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:sitespeedio/pagexray.git"

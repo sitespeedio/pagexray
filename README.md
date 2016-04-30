@@ -45,11 +45,13 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
     "url": "https://run.sitespeed.io/",
     "finalUrl": "https://run.sitespeed.io/",
     "baseDomain": "run.sitespeed.io",
-    "documentRedirects": 0,
+    "documentRedirects": -1,
+    "redirectChain": [],
     "transferSize": 102069,
     "contentSize": 102069,
     "headerSize": 6480,
     "requests": 11,
+    "httpType": "h2",
     "httpVersion": "HTTP/2.0",
     "contentTypes": {
       "html": {
@@ -65,10 +67,16 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
         "requests": 1
       },
       "image": {
-        "transferSize": 56955,
-        "contentSize": 56955,
-        "headerSize": 4907,
-        "requests": 8
+        "transferSize": 11855,
+        "contentSize": 11855,
+        "headerSize": 984,
+        "requests": 2
+      },
+      "svg": {
+        "transferSize": 45100,
+        "contentSize": 45100,
+        "headerSize": 3923,
+        "requests": 6
       },
       "favicon": {
         "transferSize": 6518,
@@ -76,6 +84,10 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
         "headerSize": 644,
         "requests": 1
       }
+    },
+    "assets": [],
+    "responseCodes": {
+      "200": 11
     },
     "domains": {
       "run.sitespeed.io": {
@@ -91,22 +103,21 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
         "headerSize": 692
       }
     },
-    "responseCodes": {
-      "200": 11
-    },
     "expireStats": {
       "min": "0",
       "p10": "0",
+      "median": "31536000",
       "p90": "31536000",
       "p99": "31536000",
       "max": "31536000"
     },
     "lastModifiedStats": {
-      "min": "7894266",
-      "p10": "11214662",
-      "p90": "559282522",
-      "p99": "559282522",
-      "max": "559282522"
+      "min": "15293097",
+      "p10": "18613493",
+      "median": "18613493",
+      "p90": "566681353",
+      "p99": "566681353",
+      "max": "566681353"
     }
   }
 ]

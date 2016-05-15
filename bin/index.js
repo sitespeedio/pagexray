@@ -16,6 +16,7 @@ if (argv.help || !argv._[0]) {
   console.log('   Options:');
   console.log('   --pretty              Pretty format the JSON [false]');
   console.log('   --includeAssets       Include info about every asset in the result [false]');
+  console.log('   --firstParty          A regex defining if a URL is 1st or 3rd party URL');
 } else {
   var har = JSON.parse(fs.readFileSync(argv._[0]));
   var pages = pagexray.convert(har, argv);

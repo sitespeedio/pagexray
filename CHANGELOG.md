@@ -1,5 +1,11 @@
 # CHANGELOG - PageXray
 
+UNRELEASED
+------------------------
+### Changed
+New structure for domains to be able to support 1st vs 3rd party assets. Supply a regex for 1st party domains 
+and you will get stats for 1st vs 3rd.
+
 version 0.6.0 - 2016-04-18
 ------------------------
 ### Fixed

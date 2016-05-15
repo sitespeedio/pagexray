@@ -1,6 +1,6 @@
 # CHANGELOG - PageXray
 
-UNRELEASED
+version 0.7.0 - 2016-05-15
 ------------------------
 ### Changed
 New structure for domains to be able to support 1st vs 3rd party assets. Supply a regex for 1st party domains 

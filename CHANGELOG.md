@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 0.8.0 - 2016-05-15
+------------------------
+### Changed
+Even cleaner structure for first party vs third party assets.
+
 version 0.7.0 - 2016-05-15
 ------------------------
 ### Changed

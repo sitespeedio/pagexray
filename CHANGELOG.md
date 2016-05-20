@@ -1,5 +1,12 @@
 # CHANGELOG - PageXray
 
+version 0.9.0 - 2016-05-20
+------------------------
+### Changed
+* Always report default content types (html, css, javascript etc) + add others. Before we only added the types that was in the HAR.
+
+* Make sure content size is > -1 (sometimes Firefox HAR have assets that are -1 in size).
+
 version 0.8.0 - 2016-05-15
 ------------------------
 ### Changed
@@ -8,13 +15,12 @@ Even cleaner structure for first party vs third party assets.
 version 0.7.0 - 2016-05-15
 ------------------------
 ### Changed
-New structure for domains to be able to support 1st vs 3rd party assets. Supply a regex for 1st party domains 
-and you will get stats for 1st vs 3rd.
+New structure for domains to be able to support 1st vs 3rd party assets. Supply a regex for 1st party domains and you will get stats for 1st vs 3rd.
 
 version 0.6.0 - 2016-04-18
 ------------------------
 ### Fixed
-* Fix content type matching for json.
+* Fix content type matching for JSON.
 
 ### Changed
 * Renamed 'others' content type to 'other' for consistency.

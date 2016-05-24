@@ -1,5 +1,14 @@
 # CHANGELOG - PageXray
 
+version 0.9.1- 2016-05-23
+------------------------
+### Changed
+* Convert lib functions to new ES6 short syntax
+
+* If time since last modified header is missing return 0 for value instead of -1
+
+* Key 'documentRedirects' in output now returns 0 if there are no document redirects instead of -1
+
 version 0.9.0 - 2016-05-20
 ------------------------
 ### Changed

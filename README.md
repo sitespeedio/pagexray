@@ -2,14 +2,15 @@
 
 [![Build status][travis-image]][travis-url]
 
-Convert a HAR to a summary of a page, describing what's important of a web page in a performance perspective to a page. This is a part of the coming sitespeed.io 4.0 but you can use it standalone.
+We love the HAR file but it's hard to actually see what the page includes only looking at the file. The PageXray converts a HAR file to a JSON format that is easier to read. We use the format internally in the coach and sitespeed.io.
 
 ## What do we collect?
+
  * The size and the number of requests per content type
  * The size and requests per domain
  * The number of requests per response code
  * The base domain and the httpVersion used for the base asset (the main HTML document)
- * All assets (responses) with the following data: type, url, size, expires (a normalized expires convering max-age/expires to just expires in seconds), status (response code), timeSinceLastModified (using the last modified field in the reponse header and normalizing to seconds), httpVersion and all request and response headers.
+ * All assets (responses) with the following data: type, url, size, expires (a normalized expires converting max-age/expires to just expires in seconds), status (response code), timeSinceLastModified (using the last modified field in the response header and normalizing to seconds), httpVersion and all request and response headers.
 
 ## Install
 ```bash

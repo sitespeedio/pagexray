@@ -1,5 +1,16 @@
 # CHANGELOG - PageXray
 
+UNRELEASED
+------------------------
+### Changed
+* Convert lib functions to new ES6 short syntax.
+
+* If time since last modified header is missing return undefined for value instead of -1.
+
+* Key 'documentRedirects' in output now returns 0 if there are no document redirects instead of -1.
+
+* httpType and httpVersion should now return the correct info if inital test URL is redirected.
+
 version 0.9.0 - 2016-05-20
 ------------------------
 ### Changed

@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+UNRELEASED
+------------------------
+### Changed
+* Internal: We moved to airbnb eslint style rules.
+
 version 0.9.0 - 2016-05-20
 ------------------------
 ### Changed

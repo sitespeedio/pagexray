@@ -2,12 +2,12 @@
 
 'use strict';
 
-var pagexray = require('../lib/index'),
-  fs = require('fs'),
-  minimist = require('minimist');
+const pagexray = require('../lib/index');
+const fs = require('fs');
+const minimist = require('minimist');
 
-var argv = minimist(process.argv.slice(2), {
-  boolean: ['pretty', 'includeAssets']
+const argv = minimist(process.argv.slice(2), {
+  boolean: ['pretty', 'includeAssets'],
 });
 
 if (argv.help || !argv._[0]) {
@@ -18,8 +18,8 @@ if (argv.help || !argv._[0]) {
   console.log('   --includeAssets       Include info about every asset in the result [false]');
   console.log('   --firstParty          A regex defining if a URL is 1st or 3rd party URL');
 } else {
-  var har = JSON.parse(fs.readFileSync(argv._[0]));
-  var pages = pagexray.convert(har, argv);
+  const har = JSON.parse(fs.readFileSync(argv._[0]));
+  const pages = pagexray.convert(har, argv);
   if (argv.pretty) {
     console.log(JSON.stringify(pages, null, '  '));
   } else {

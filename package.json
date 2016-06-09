@@ -32,10 +32,11 @@
     "lib"
   ],
   "scripts": {
+    "lint": "npm run eslint",
     "eslint": "eslint .",
     "test": "mocha",
     "jsdoc": "jsdoc lib/* -d dist/doc",
-    "travis": "npm run eslint && npm run test"
+    "travis": "npm run lint && npm run test"
   },
   "engines": {
     "node": ">=4.3.0"

@@ -2,6 +2,8 @@
 
 [![Build status][travis-image]][travis-url]
 
+![Page Xray](img/pagexray.png)
+
 We love the HAR file but it's hard to actually see what the page includes only looking at the file. The PageXray converts a HAR file to a JSON format that is easier to read. We use the format internally in the coach and sitespeed.io.
 
 ## What do we collect?

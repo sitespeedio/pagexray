@@ -1,9 +1,12 @@
 # CHANGELOG - PageXray
 
-UNRELEASED
+version 0.10.0 2016-09-01
 ------------------------
 ### Changed
 * Internal: We moved to airbnb eslint style rules.
+
+### Added
+* Collect total number of domains in totalDomain.
 
 version 0.9.0 - 2016-05-20
 ------------------------

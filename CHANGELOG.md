@@ -1,5 +1,11 @@
 # CHANGELOG - PageXray
 
+version 0.11.0 2016-09-09
+------------------------
+### Added
+* Collect total download time for each response
+* Collect number of cookies per asset
+
 version 0.10.0 2016-09-01
 ------------------------
 ### Changed

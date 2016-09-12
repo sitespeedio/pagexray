@@ -1,6 +1,6 @@
 # CHANGELOG - PageXray
 
-version 0.11.0 2016-09-09
+version 0.11.0 2016-09-12
 ------------------------
 ### Added
 * Collect total download time for each response

@@ -1,5 +1,11 @@
 # CHANGELOG - PageXray
 
+UNRELEASED
+------------------------
+### Added
+* Collect cookie stats for a page (max/min median etc)
+* Collect cookie stats for first vs third parties
+
 version 0.11.0 2016-09-12
 ------------------------
 ### Added

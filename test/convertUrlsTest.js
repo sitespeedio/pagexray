@@ -7,10 +7,11 @@ let assert = require('assert'),
 describe('Converting URLs', function() {
 
   it('Should convert urls', function() {
-    return har.getPages('test/files/www.nytimes.com.har').then((result) => {
-      var exectedUrls = ['http://www.nytimes.com/', 'http://www.nytimes.com/'];
-      assert.deepEqual(pluck(result, 'url'), exectedUrls);
-    });
+    return har.pagesFromTestHar('www.nytimes.com.har')
+      .then((result) => {
+        const exectedUrls = ['http://www.nytimes.com/', 'http://www.nytimes.com/'];
+        assert.deepEqual(pluck(result, 'url'), exectedUrls);
+      });
   });
 
 });

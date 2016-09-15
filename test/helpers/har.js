@@ -1,8 +1,6 @@
-#!/usr/bin/env node
-
 'use strict';
 
-let fs = require('fs'),
+const fs = require('fs'),
   Promise = require('bluebird'),
   path = require('path'),
   hartopage = require('../../lib/index');
@@ -10,13 +8,13 @@ let fs = require('fs'),
 Promise.promisifyAll(fs);
 
 module.exports = {
-  getPages: function(harFile) {
-    return fs.readFileAsync(path.resolve(__dirname, '..', '..', harFile))
-      .then(JSON.parse)
-      .then(hartopage.convert)
-      .catch((e) => {
-        console.error('Error fetching page(s)', e);
-        throw e;
-      })
+  parseTestHar(relativePath) {
+    const harPath = path.resolve(__dirname, '..', 'files', relativePath);
+    return fs.readFileAsync(harPath)
+      .then(JSON.parse);
+  },
+  pagesFromTestHar(relativePath) {
+    return this.parseTestHar(relativePath)
+      .then(hartopage.convert);
   }
 };

@@ -56,6 +56,13 @@
   "bin": "./bin/index.js",
   "dependencies": {
     "fast-stats": "0.0.3",
+    "lodash.clonedeep": "4.5.0",
+    "lodash.countby": "4.6.0",
+    "lodash.groupby": "4.6.0",
+    "lodash.isempty": "4.4.0",
+    "lodash.merge": "4.6.0",
+    "lodash.pick": "4.4.0",
+    "lodash.reduce": "4.6.0",
     "minimist": "1.2.0"
   }
 }

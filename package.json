@@ -50,7 +50,7 @@
     "jsdoc": "^3.4.0",
     "lodash.foreach": "^4.2.0",
     "lodash.pluck": "^3.1.2",
-    "mocha": "^2.4.5"
+    "mocha": "^3.0.2"
   },
   "main": "./lib/index.js",
   "bin": "./bin/index.js",

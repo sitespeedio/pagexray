@@ -5,6 +5,9 @@ UNRELEASED
 ### Added
 * Collect number of responses missing compression (that can be compressed)
 
+### Fixed
+* Get cookies from the request instead of the response (great @tobli!)
+
 version 0.12.0 2016-09-14
 ------------------------
 ### Added

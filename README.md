@@ -45,83 +45,95 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
 ```json
 [
   {
-    "url": "https://run.sitespeed.io/",
-    "finalUrl": "https://run.sitespeed.io/",
-    "baseDomain": "run.sitespeed.io",
+    "url": "https://www.sitespeed.io/",
+    "finalUrl": "https://www.sitespeed.io/",
+    "baseDomain": "www.sitespeed.io",
     "documentRedirects": -1,
     "redirectChain": [],
-    "transferSize": 102069,
-    "contentSize": 102069,
-    "headerSize": 6480,
-    "requests": 11,
-    "httpType": "h2",
-    "httpVersion": "HTTP/2.0",
+    "transferSize": 160894,
+    "contentSize": 221699,
+    "headerSize": 8027,
+    "requests": 12,
+    "missingCompression": 0,
+    "httpType": "h1",
+    "httpVersion": "HTTP/1.1",
     "contentTypes": {
       "html": {
-        "transferSize": 12311,
-        "contentSize": 12311,
-        "headerSize": 582,
+        "transferSize": 7276,
+        "contentSize": 24962,
+        "headerSize": 776,
         "requests": 1
       },
+      "css": {
+        "transferSize": 0,
+        "contentSize": 0,
+        "headerSize": 0,
+        "requests": 0
+      },
       "javascript": {
-        "transferSize": 26285,
-        "contentSize": 26285,
-        "headerSize": 347,
+        "transferSize": 0,
+        "contentSize": 43082,
+        "headerSize": 0,
         "requests": 1
       },
       "image": {
-        "transferSize": 11855,
-        "contentSize": 11855,
-        "headerSize": 984,
-        "requests": 2
+        "transferSize": 153620,
+        "contentSize": 153655,
+        "headerSize": 7253,
+        "requests": 10
       },
-      "svg": {
-        "transferSize": 45100,
-        "contentSize": 45100,
-        "headerSize": 3923,
-        "requests": 6
-      },
-      "favicon": {
-        "transferSize": 6518,
-        "contentSize": 6518,
-        "headerSize": 644,
-        "requests": 1
+      "font": {
+        "transferSize": 0,
+        "contentSize": 0,
+        "headerSize": 0,
+        "requests": 0
       }
     },
     "assets": [],
     "responseCodes": {
-      "200": 11
+      "200": 12
     },
+    "firstParty": {},
+    "thirdParty": {},
     "domains": {
-      "run.sitespeed.io": {
-        "requests": 9,
-        "transferSize": 75749,
-        "contentSize": 75749,
-        "headerSize": 5788
+      "www.sitespeed.io": {
+        "requests": 10,
+        "transferSize": 160896,
+        "contentSize": 178582,
+        "headerSize": 8029
       },
-      "www.google-analytics.com": {
+      "ssl.google-analytics.com": {
         "requests": 2,
-        "transferSize": 26320,
-        "contentSize": 26320,
-        "headerSize": 692
+        "transferSize": -2,
+        "contentSize": 43117,
+        "headerSize": -2
       }
     },
     "expireStats": {
-      "min": "0",
-      "p10": "0",
-      "median": "31536000",
-      "p90": "31536000",
-      "p99": "31536000",
-      "max": "31536000"
+      "min": 0,
+      "p10": 600,
+      "median": 31536000,
+      "p90": 31536000,
+      "p99": 31536000,
+      "max": 31536000
     },
     "lastModifiedStats": {
-      "min": "15293097",
-      "p10": "18613493",
-      "median": "18613493",
-      "p90": "566681353",
-      "p99": "566681353",
-      "max": "566681353"
-    }
+      "min": 3121029,
+      "p10": 8475293,
+      "median": 8475313,
+      "p90": 8475339,
+      "p99": 578982140,
+      "max": 578982140
+    },
+    "cookieStats": {
+      "min": 0,
+      "p10": 0,
+      "median": 0,
+      "p90": 0,
+      "p99": 0,
+      "max": 0
+    },
+    "totalDomains": 2
   }
 ]
 

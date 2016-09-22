@@ -1,6 +1,6 @@
 # CHANGELOG - PageXray
 
-UNRELEASED
+version 0.13.0 2016-09-22
 ------------------------
 ### Added
 * Collect number of responses missing compression (that can be compressed)

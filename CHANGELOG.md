@@ -1,6 +1,6 @@
 # CHANGELOG - PageXray
 
-UNRELEASED
+version 0.13.1 2016-10-17
 ------------------------
 ### Fixed
 * documentRedirects should be 0 when there's no redirects (not -1).

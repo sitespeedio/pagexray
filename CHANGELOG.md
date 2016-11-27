@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 0.13.2 2016-11-27
+------------------------
+### Added
+* Added breakdown for first vs third party asset content types
+
 version 0.13.1 2016-10-17
 ------------------------
 ### Fixed

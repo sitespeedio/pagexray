@@ -7,10 +7,3 @@ set -e
 np $*
 
 PACKAGE_VERSION=$(node -e 'console.log(require("./package").version)')
-
-docker build --no-cache -t sitespeedio/pagexray:$PACKAGE_VERSION -t sitespeedio/pagexray:latest .
-
-docker login
-
-docker push sitespeedio/pagexray:$PACKAGE_VERSION
-docker push sitespeedio/pagexray:latest

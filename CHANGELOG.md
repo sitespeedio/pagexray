@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 0.14.1 2016-12-05
+------------------------
+### Fixed
+* Making sure default content types values exist even if they don't
+
 version 0.14.0 2016-11-27
 ------------------------
 ### Added

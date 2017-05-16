@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 0.14.2 2017-05-16
+------------------------
+### Fixed
+* Calculating timing for an assets included both SSL and Connect time, that is wrong since connect time includes SSL time.
+
 version 0.14.1 2016-12-05
 ------------------------
 ### Fixed

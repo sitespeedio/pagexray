@@ -29,7 +29,7 @@ describe('Check content types', function() {
         assert.strictEqual(types.svg.requests, 2, 'We couldnt get the right number of svg');
         assert.strictEqual(types.plain.requests, 2, 'We couldnt get the right number of plain');
         assert.strictEqual(types.favicon.requests, 1, 'We couldnt get the right number of favicons');
-        assert.strictEqual(types.other.requests, 20, 'We couldnt get the right number of other');
+        assert.strictEqual(types.other.requests, 22, 'We couldnt get the right number of other');
       });
   });
 });

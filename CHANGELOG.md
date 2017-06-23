@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 0.14.3 2017-06-23
+------------------------
+### Fixed
+* Collect assets that have 2XX status code instead of just strict 200. Thanks @vio for the PR.
+
 version 0.14.2 2017-05-16
 ------------------------
 ### Fixed

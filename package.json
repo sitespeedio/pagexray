@@ -36,13 +36,16 @@
     "eslint": "eslint .",
     "test": "mocha",
     "jsdoc": "jsdoc lib/* -d dist/doc",
-    "travis": "npm run lint && npm run test"
+    "travis": "npm run lint && npm run test",
+    "browserify": "mkdirp dist && node_modules/browserify/bin/cmd.js lib/index.js -o dist/pagexray.js",
+    "uglify": "node_modules/uglify-es/bin/uglifyjs dist/pagexray.js --compress side_effects=false,negate_iife=false --mangle > dist/pagexray.min.js"
   },
   "engines": {
     "node": ">=6.10.3"
   },
   "devDependencies": {
     "bluebird": "^3.3.5",
+    "browserify": "14.4.0",
     "chai": "^4.0.1",
     "eslint": "^3.5.0",
     "eslint-config-airbnb-base": "^11.2.0",
@@ -50,7 +53,8 @@
     "jsdoc": "^3.4.0",
     "lodash.foreach": "^4.2.0",
     "lodash.pluck": "^3.1.2",
-    "mocha": "^3.0.2"
+    "mocha": "^3.0.2",
+    "uglify-es": "^3.0.24"
   },
   "main": "./lib/index.js",
   "bin": "./bin/index.js",

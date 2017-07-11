@@ -37,8 +37,8 @@
     "test": "mocha",
     "jsdoc": "jsdoc lib/* -d dist/doc",
     "travis": "npm run lint && npm run test",
-    "browserify": "mkdirp dist && node_modules/browserify/bin/cmd.js lib/index.js -o dist/pagexray.js",
-    "uglify": "node_modules/uglify-es/bin/uglifyjs dist/pagexray.js --compress side_effects=false,negate_iife=false --mangle > dist/pagexray.min.js"
+    "browserify": "mkdirp dist && node_modules/browserify/bin/cmd.js lib/index.js -o dist/pagexray.js --standalone PageXray",
+    "uglify": "node_modules/uglify-es/bin/uglifyjs dist/pagexray.js --compress --mangle > dist/pagexray.min.js"
   },
   "engines": {
     "node": ">=6.10.3"

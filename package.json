@@ -39,7 +39,7 @@
     "travis": "npm run lint && npm run test",
     "browserify": "mkdirp dist && node_modules/browserify/bin/cmd.js lib/index.js -o dist/pagexray.js --standalone PageXray -p [ browserify-banner --template 'PageXray v<%= pkg.version %> - Xray your HAR file and know all about the page - https://github.com/sitespeedio/pagexray' ]",
     "uglify": "node_modules/uglify-es/bin/uglifyjs dist/pagexray.js --compress --mangle --comments '/pagexray/' > dist/pagexray.min.js",
-    "prepublish": "npm run browserify && npm run uglify"
+    "prepublishOnly": "npm run browserify && npm run uglify"
   },
   "engines": {
     "node": ">=6.10.3"

@@ -46,8 +46,8 @@
   },
   "devDependencies": {
     "bluebird": "^3.3.5",
-    "browserify": "14.4.0",
-    "browserify-banner": "1.0.4",
+    "browserify": "^14.4.0",
+    "browserify-banner": "^1.0.4",
     "chai": "^4.0.1",
     "eslint": "^3.5.0",
     "eslint-config-airbnb-base": "^11.2.0",

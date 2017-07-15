@@ -37,8 +37,8 @@
     "test": "mocha",
     "jsdoc": "jsdoc lib/* -d dist/doc",
     "travis": "npm run lint && npm run test",
-    "browserify": "mkdirp dist && node_modules/browserify/bin/cmd.js lib/index.js -o dist/pagexray.js --standalone PageXray",
-    "uglify": "node_modules/uglify-es/bin/uglifyjs dist/pagexray.js --compress --mangle > dist/pagexray.min.js",
+    "browserify": "mkdirp dist && node_modules/browserify/bin/cmd.js lib/index.js -o dist/pagexray.js --standalone PageXray -p [ browserify-banner --template 'PageXray v<%= pkg.version %> - Xray your HAR file and know all about the page - https://github.com/sitespeedio/pagexray' ]",
+    "uglify": "node_modules/uglify-es/bin/uglifyjs dist/pagexray.js --compress --mangle --comments '/pagexray/' > dist/pagexray.min.js",
     "prepublish": "npm run browserify && npm run uglify"
   },
   "engines": {
@@ -47,7 +47,7 @@
   "devDependencies": {
     "bluebird": "^3.3.5",
     "browserify": "14.4.0",
-    "browserify-header": "0.9.2",
+    "browserify-banner": "1.0.4",
     "chai": "^4.0.1",
     "eslint": "^3.5.0",
     "eslint-config-airbnb-base": "^11.2.0",

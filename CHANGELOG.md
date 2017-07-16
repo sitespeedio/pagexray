@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+UNRELEASED
+------------------------
+### Added
+* We now support running PageXray in the browser. Check dist/pagexray.min.js
+
 version 0.14.3 2017-06-23
 ------------------------
 ### Fixed

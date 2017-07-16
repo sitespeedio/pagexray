@@ -4,8 +4,8 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.PageXray = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-const util = require('./util');
-const headers = require('./headers');
+var util = require('./util');
+var headers = require('./headers');
 
 function getTiming(entry, field) {
   return entry.timings[field] === -1 ? 0 : entry.timings[field];
@@ -16,7 +16,7 @@ function newContentData() {
     transferSize: 0,
     contentSize: 0,
     headerSize: 0,
-    requests: 0,
+    requests: 0
   };
 }
 
@@ -28,18 +28,15 @@ function newContentData() {
  */
 module.exports = {
 
-  asset: (entry) => {
-    const response = entry.response;
-    const request = entry.request;
+  asset: function asset(entry) {
+    var response = entry.response;
+    var request = entry.request;
 
-    const contentType = util.getContentType(response.content.mimeType);
-    const requestHeaders = headers.flatten(request.headers);
-    const responseHeaders = headers.flatten(response.headers);
+    var contentType = util.getContentType(response.content.mimeType);
+    var requestHeaders = headers.flatten(request.headers);
+    var responseHeaders = headers.flatten(response.headers);
 
-    const timing = getTiming(entry, 'blocked') + getTiming(entry, 'dns') +
-      getTiming(entry, 'connect') +
-      getTiming(entry, 'send') + getTiming(entry, 'wait') +
-      getTiming(entry, 'receive');
+    var timing = getTiming(entry, 'blocked') + getTiming(entry, 'dns') + getTiming(entry, 'connect') + getTiming(entry, 'send') + getTiming(entry, 'wait') + getTiming(entry, 'receive');
 
     return {
       type: contentType,
@@ -53,10 +50,10 @@ module.exports = {
       httpVersion: util.getHTTPVersion(response.httpVersion),
       headers: {
         request: requestHeaders,
-        response: responseHeaders,
+        response: responseHeaders
       },
-      timing,
-      cookies: request.cookies.length,
+      timing: timing,
+      cookies: request.cookies.length
     };
   },
 
@@ -68,9 +65,9 @@ module.exports = {
    * @returns {void}
    * @private
    */
-  domainInfo: (asset, domains) => {
-    const domain = util.getHostname(asset.url);
-    const contentData = domains[domain] || newContentData();
+  domainInfo: function domainInfo(asset, domains) {
+    var domain = util.getHostname(asset.url);
+    var contentData = domains[domain] || newContentData();
 
     contentData.transferSize += asset.transferSize;
     contentData.contentSize += asset.contentSize;
@@ -87,20 +84,20 @@ module.exports = {
    * @returns {void}
    * @private
    */
-  responseCode: (asset, responseCodes) => {
-    const count = responseCodes[asset.status] || 0;
+  responseCode: function responseCode(asset, responseCodes) {
+    var count = responseCodes[asset.status] || 0;
 
     responseCodes[asset.status] = count + 1;
   },
   /**
    * Check if the asset should be compressed but isn't.
    */
-  missingCompression: (asset, myPage) => {
-    const encoding = asset.headers.response['content-encoding'];
+  missingCompression: function missingCompression(asset, myPage) {
+    var encoding = asset.headers.response['content-encoding'];
 
-    const couldBeCompressed = ['html', 'plain', 'json', 'javascript', 'css', 'svg'].includes(asset.type);
-    const isCompressed = ['gzip', 'br', 'deflate'].includes(encoding);
-    const isLargeFile = asset.contentSize > 2000;
+    var couldBeCompressed = ['html', 'plain', 'json', 'javascript', 'css', 'svg'].includes(asset.type);
+    var isCompressed = ['gzip', 'br', 'deflate'].includes(encoding);
+    var isLargeFile = asset.contentSize > 2000;
 
     if (couldBeCompressed && isLargeFile && !isCompressed) {
       myPage.missingCompression += 1;
@@ -109,15 +106,16 @@ module.exports = {
   /**
    * A set of default content type data that should always be included in reports
    */
-  defaultContentTypes() {
+  defaultContentTypes: function defaultContentTypes() {
     return {
       html: newContentData(),
       css: newContentData(),
       javascript: newContentData(),
       image: newContentData(),
-      font: newContentData(),
+      font: newContentData()
     };
   },
+
   /*
    * Collect content type from an asset.
    * @param {Object} asset The asset.
@@ -125,14 +123,14 @@ module.exports = {
    * @returns {void}
    * @private
    */
-  contentType: (asset, contentTypes) => {
-    if (!(/^2\d{2}/.test(asset.status))) {
+  contentType: function contentType(asset, contentTypes) {
+    if (!/^2\d{2}/.test(asset.status)) {
       return;
     }
 
     // TODO how to handle unknown?
 
-    const contentData = contentTypes[asset.type] || newContentData();
+    var contentData = contentTypes[asset.type] || newContentData();
 
     contentData.requests += 1;
     // header vs content size?
@@ -142,7 +140,7 @@ module.exports = {
     contentData.headerSize += Math.max(asset.headerSize, 0);
 
     contentTypes[asset.type] = contentData;
-  },
+  }
 };
 
 },{"./headers":2,"./util":5}],2:[function(require,module,exports){
@@ -157,8 +155,8 @@ module.exports = {
    * @param {Object} headers All the headers for an asset.
    * @returns {Object} flatten headers.
    */
-  flatten: (headers) => {
-    const theHeaders = headers.reduce((result, header) => {
+  flatten: function flatten(headers) {
+    var theHeaders = headers.reduce(function (result, header) {
       result[header.name.toLowerCase()] = header.value;
       return result;
     }, {});
@@ -172,22 +170,21 @@ module.exports = {
    * @param {Object} responseHeaders The headers.
    * @returns {int} the expire time in seconds.
    */
-  getExpires: (responseHeaders) => {
-    const maxAgeRegExp = /max-age=(\d+)/;
-    let expireTime = 0;
+  getExpires: function getExpires(responseHeaders) {
+    var maxAgeRegExp = /max-age=(\d+)/;
+    var expireTime = 0;
 
     if (responseHeaders['cache-control']) {
-      if (responseHeaders['cache-control'].indexOf('no-cache') !== -1 ||
-        responseHeaders['cache-control'].indexOf('no-store') !== -1) {
+      if (responseHeaders['cache-control'].indexOf('no-cache') !== -1 || responseHeaders['cache-control'].indexOf('no-store') !== -1) {
         return 0;
       }
-      const matches = responseHeaders['cache-control'].match(maxAgeRegExp);
+      var matches = responseHeaders['cache-control'].match(maxAgeRegExp);
       if (matches) {
         return parseInt(matches[1], 10);
       }
     } else if (responseHeaders.expires) {
-      const expiresDate = new Date(responseHeaders.expires);
-      const now = new Date().getTime();
+      var expiresDate = new Date(responseHeaders.expires);
+      var now = new Date().getTime();
       expireTime = expiresDate.getTime() - now;
     }
     return expireTime;
@@ -198,9 +195,9 @@ module.exports = {
    * @param {Object} headers The headers.
    * @returns {int} the time since the asset was last modified in seconds.
    */
-  getTimeSinceLastModified: (headers) => {
-    let now = new Date();
-    let lastModifiedDate;
+  getTimeSinceLastModified: function getTimeSinceLastModified(headers) {
+    var now = new Date();
+    var lastModifiedDate = void 0;
     if (headers['last-modified']) {
       lastModifiedDate = new Date(headers['last-modified']);
     } else if (headers.date) {
@@ -214,15 +211,15 @@ module.exports = {
     }
 
     return (now.getTime() - lastModifiedDate.getTime()) / 1000;
-  },
+  }
 };
 
 },{}],3:[function(require,module,exports){
 'use strict';
 
-const util = require('./util');
-const collect = require('./collect');
-const Statistics = require('./statistics').Statistics;
+var util = require('./util');
+var collect = require('./collect');
+var Statistics = require('./statistics').Statistics;
 
 /**
  * Convert a HAR object to a better page summary.
@@ -238,21 +235,21 @@ module.exports = {
    * @returns {Array} The converted page objects.
    */
 
-  convert: (har, config) => {
+  convert: function convert(har, config) {
     config = config || {};
 
-    const pages = [];
-    let currentPage = {};
-    const testedPages = {};
+    var pages = [];
+    var currentPage = {};
+    var testedPages = {};
 
-    har.log.entries.forEach((entry) => {
+    har.log.entries.forEach(function (entry) {
       if (!testedPages[entry.pageref]) {
-        const redirects = util.getFinalURL(entry, har);
+        var redirects = util.getFinalURL(entry, har);
         currentPage = {
           url: har.log.entries[0].request.url,
           finalUrl: redirects.url,
           baseDomain: util.getHostname(redirects.url),
-          documentRedirects: (redirects.chain.length === 0) ? 0 : (redirects.chain.length - 1),
+          documentRedirects: redirects.chain.length === 0 ? 0 : redirects.chain.length - 1,
           redirectChain: redirects.chain,
           transferSize: 0,
           contentSize: 0,
@@ -267,21 +264,21 @@ module.exports = {
           responseCodes: {},
           firstParty: {
             cookieStats: new Statistics(),
-            contentTypes: collect.defaultContentTypes(),
+            contentTypes: collect.defaultContentTypes()
           },
           thirdParty: {
             cookieStats: new Statistics(),
-            contentTypes: collect.defaultContentTypes(),
+            contentTypes: collect.defaultContentTypes()
           },
           domains: {},
           expireStats: new Statistics(),
           lastModifiedStats: new Statistics(),
-          cookieStats: new Statistics(),
+          cookieStats: new Statistics()
         };
         testedPages[entry.pageref] = currentPage;
         pages.push(currentPage);
       }
-      const asset = collect.asset(entry);
+      var asset = collect.asset(entry);
       currentPage.expireStats.add(asset.expires);
       if (asset.timeSinceLastModified !== -1) {
         currentPage.lastModifiedStats.add(asset.timeSinceLastModified);
@@ -295,27 +292,23 @@ module.exports = {
       collect.missingCompression(asset, currentPage);
 
       currentPage.transferSize += entry.response.bodySize;
-      currentPage.contentSize += entry.response.content.size < 0 ? entry.response.bodySize :
-        entry.response.content.size;
+      currentPage.contentSize += entry.response.content.size < 0 ? entry.response.bodySize : entry.response.content.size;
       currentPage.headerSize += entry.response.headersSize;
 
       // add first/third party info
       if (config.firstParty) {
         // is it a third party asset?
 
-        let stats = currentPage.thirdParty;
+        var stats = currentPage.thirdParty;
 
         if (asset.url.match(config.firstParty)) {
           stats = currentPage.firstParty;
         }
 
         stats.requests = stats.requests + 1 || 1;
-        stats.transferSize = stats.transferSize + asset.transferSize ||
-          asset.transferSize;
-        stats.contentSize = stats.contentSize + asset.contentSize ||
-          asset.contentSize;
-        stats.headerSize = stats.headerSize + asset.headerSize ||
-          asset.headerSize;
+        stats.transferSize = stats.transferSize + asset.transferSize || asset.transferSize;
+        stats.contentSize = stats.contentSize + asset.contentSize || asset.contentSize;
+        stats.headerSize = stats.headerSize + asset.headerSize || asset.headerSize;
         stats.cookieStats.add(asset.cookies);
         collect.contentType(asset, stats.contentTypes);
       }
@@ -324,7 +317,7 @@ module.exports = {
     });
 
     // cleanup the stats
-    pages.forEach((page) => {
+    pages.forEach(function (page) {
       page.expireStats = page.expireStats.summarize();
       page.lastModifiedStats = page.lastModifiedStats.summarize();
       page.cookieStats = page.cookieStats.summarize();
@@ -341,71 +334,73 @@ module.exports = {
       }
     });
     return pages;
-  },
+  }
 };
 
 },{"./collect":1,"./statistics":4,"./util":5}],4:[function(require,module,exports){
 'use strict';
 
-class Statistics {
-  constructor() {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Statistics = function () {
+  function Statistics() {
+    _classCallCheck(this, Statistics);
+
     this.values = [];
   }
 
-  add(value) {
-    this.values.push(value);
-    return this;
-  }
-
-  summarize() {
-    const values = this.values;
-    // keeping backward compability
-    if (values.length === 0) {
-      return undefined;
+  _createClass(Statistics, [{
+    key: 'add',
+    value: function add(value) {
+      this.values.push(value);
+      return this;
     }
+  }, {
+    key: 'summarize',
+    value: function summarize() {
+      var values = this.values;
+      // keeping backward compatibility
+      if (values.length === 0) {
+        return undefined;
+      }
 
-    values.sort((a, b) => a - b);
+      values.sort(function (a, b) {
+        return a - b;
+      });
 
-    const data = {
-      min: Number(values[0]).toFixed(0),
-      max: Number(values[values.length - 1]).toFixed(0),
-    };
+      var middle = Math.floor(values.length / 2);
+      var isEven = values.length % 2 === 0;
+      var median = void 0;
+      if (isEven) {
+        median = (Number(values[middle] + values[middle - 1]) / 2).toFixed(0);
+      } else {
+        median = Number(values[middle].toFixed(0));
+      }
 
-    const middle = Math.floor(values.length / 2);
-    const isEven = values.length % 2 === 0;
-    data.median = isEven ?
-      (Number(values[middle] + values[middle - 1]) / 2).toFixed(0) : values[middle];
+      return {
+        min: Number(values[0].toFixed(0)),
+        median: median,
+        max: Number(values[values.length - 1].toFixed(0))
+      };
+    }
+  }]);
 
-    return data;
-  }
-}
+  return Statistics;
+}();
 
 module.exports = {
-  Statistics,
+  Statistics: Statistics
 };
 
 },{}],5:[function(require,module,exports){
 'use strict';
 
-const urlParser = require('url');
+var urlParser = require('url');
 
 // Priorities list of matchers
-const MIME_TYPE_MATCHERS = [
-  [/^text\/html/, 'html'],
-  [/^text\/plain/, 'plain'],
-  [/^text\/css/, 'css'],
-  [/javascript/, 'javascript'],
-  [/flash/, 'flash'],
-  [/^image\/x-icon/, 'favicon'],
-  [/^image\/vnd.microsoft.icon/, 'favicon'],
-  [/svg/, 'svg'],
-  [/^image/, 'image'],
-  [/^application\/.*font/, 'font'],
-  [/^font\/.*/, 'font'],
-  [/^application\/json/, 'json'],
-  [/^application\/ocsp-response/, 'oscp'],
-  [/.*/, 'other'], // Always match 'other' if all else fails
-];
+var MIME_TYPE_MATCHERS = [[/^text\/html/, 'html'], [/^text\/plain/, 'plain'], [/^text\/css/, 'css'], [/javascript/, 'javascript'], [/flash/, 'flash'], [/^image\/x-icon/, 'favicon'], [/^image\/vnd.microsoft.icon/, 'favicon'], [/svg/, 'svg'], [/^image/, 'image'], [/^application\/.*font/, 'font'], [/^font\/.*/, 'font'], [/^application\/json/, 'json'], [/^application\/ocsp-response/, 'oscp'], [/.*/, 'other']];
 
 /**
  * Utilities for getting content from HAR:s.
@@ -418,10 +413,13 @@ module.exports = {
    * @param {string} mimeType The mimeType
    * @returns {string} the content type or 'other'.
    */
-  getContentType: mimeType =>
-    MIME_TYPE_MATCHERS.find(matcher => matcher[0].test(mimeType))[1],
+  getContentType: function getContentType(mimeType) {
+    return MIME_TYPE_MATCHERS.find(function (matcher) {
+      return matcher[0].test(mimeType);
+    })[1];
+  },
 
-  getHTTPVersion: (version) => {
+  getHTTPVersion: function getHTTPVersion(version) {
     if (version === 'h2' || version === 'HTTP/2.0') {
       return 'HTTP/2.0';
     } else if (version.indexOf('spdy') > -1) {
@@ -429,7 +427,7 @@ module.exports = {
     }
     return version.toUpperCase();
   },
-  getConnectionType: (version) => {
+  getConnectionType: function getConnectionType(version) {
     if (version === 'h2' || version === 'HTTP/2.0') {
       return 'h2';
     } else if (version.indexOf('spdy') > -1) {
@@ -442,7 +440,7 @@ module.exports = {
    * @param {string} url The URL like https://www.example.com/hepp
    * @returns {string} the hostname
    */
-  getHostname: (url) => {
+  getHostname: function getHostname(url) {
     if (!url) {
       return '';
     }
@@ -456,15 +454,15 @@ module.exports = {
    * @param {Object} har The har.
    * @returns {string} the last url in the redirect chain.
    */
-  getFinalURL: (harEntry, har) => {
-    let url = harEntry.request.url;
-    let chain = [url];
-    const redirections = har.log.entries.reduce((results, entry) => {
+  getFinalURL: function getFinalURL(harEntry, har) {
+    var url = harEntry.request.url;
+    var chain = [url];
+    var redirections = har.log.entries.reduce(function (results, entry) {
       results[entry.request.url] = entry.response.redirectURL || '';
       return results;
     }, {});
 
-    let nextUrl = redirections[url];
+    var nextUrl = redirections[url];
 
     while (nextUrl && nextUrl !== '') {
       url = nextUrl;
@@ -476,10 +474,10 @@ module.exports = {
       chain = [];
     }
     return {
-      url,
-      chain,
+      url: url,
+      chain: chain
     };
-  },
+  }
 };
 
 },{"url":10}],6:[function(require,module,exports){

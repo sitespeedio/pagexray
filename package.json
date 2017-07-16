@@ -37,7 +37,7 @@
     "test": "mocha",
     "jsdoc": "jsdoc lib/* -d dist/doc",
     "travis": "npm run lint && npm run test",
-    "browserify": "mkdirp dist && browserify lib/index.js -o dist/pagexray.js --standalone PageXray -p [ browserify-banner --template 'PageXray v<%= pkg.version %> - Xray your HAR file and know all about the page - https://github.com/sitespeedio/pagexray' ]",
+    "browserify": "mkdirp dist && browserify lib/index.js -o dist/pagexray.js --standalone PageXray -t [ babelify --presets [ es2015 ] ] -p [ browserify-banner --template 'PageXray v<%= pkg.version %> - Xray your HAR file and know all about the page - https://github.com/sitespeedio/pagexray' ]",
     "uglify": "uglifyjs dist/pagexray.js --compress --mangle --comments '/pagexray/' > dist/pagexray.min.js",
     "prepublishOnly": "npm run browserify && npm run uglify"
   },
@@ -45,6 +45,8 @@
     "node": ">=6.10.3"
   },
   "devDependencies": {
+    "babelify":"^7.3.0",
+    "babel-preset-es2015": "^6.24.1",
     "bluebird": "^3.3.5",
     "browserify": "^14.4.0",
     "browserify-banner": "^1.0.4",

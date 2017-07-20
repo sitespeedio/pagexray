@@ -27,7 +27,6 @@ function newContentData() {
  * @returns {Object} A simplified asset.
  */
 module.exports = {
-
   asset: function asset(entry) {
     var response = entry.response;
     var request = entry.request;
@@ -147,7 +146,6 @@ module.exports = {
 'use strict';
 
 module.exports = {
-
   /**
    * Flatten HAR file headers. Har files has the header of the
    * type name/values lets use as simple JSON as possible + make
@@ -227,6 +225,19 @@ var Statistics = require('./statistics').Statistics;
  */
 
 module.exports = {
+  /**
+   * Convert one HAR to a page. Use this when you are interested
+   * of one specific run in a HAR.
+   * @param {Object} har The HAR to process.
+   * @param {Number} index The index of the HAR file of the run that will be converted.
+   * @param {Object} config The config object.
+   * @returns {Array} The converted page object.
+   */
+  convertIndex: function convertIndex(har, index, config) {
+    // TODO in the future only convert that specific run to save time
+    var pages = undefined.convert(har, config);
+    return pages[index];
+  },
 
   /**
    * Convert a HAR object to an array of pages.
@@ -374,7 +385,7 @@ var Statistics = function () {
       var isEven = values.length % 2 === 0;
       var median = void 0;
       if (isEven) {
-        median = (Number(values[middle] + values[middle - 1]) / 2).toFixed(0);
+        median = Number(((values[middle] + values[middle - 1]) / 2).toFixed(0));
       } else {
         median = Number(values[middle].toFixed(0));
       }
@@ -400,14 +411,14 @@ module.exports = {
 var urlParser = require('url');
 
 // Priorities list of matchers
-var MIME_TYPE_MATCHERS = [[/^text\/html/, 'html'], [/^text\/plain/, 'plain'], [/^text\/css/, 'css'], [/javascript/, 'javascript'], [/flash/, 'flash'], [/^image\/x-icon/, 'favicon'], [/^image\/vnd.microsoft.icon/, 'favicon'], [/svg/, 'svg'], [/^image/, 'image'], [/^application\/.*font/, 'font'], [/^font\/.*/, 'font'], [/^application\/json/, 'json'], [/^application\/ocsp-response/, 'oscp'], [/.*/, 'other']];
+var MIME_TYPE_MATCHERS = [[/^text\/html/, 'html'], [/^text\/plain/, 'plain'], [/^text\/css/, 'css'], [/javascript/, 'javascript'], [/flash/, 'flash'], [/^image\/x-icon/, 'favicon'], [/^image\/vnd.microsoft.icon/, 'favicon'], [/svg/, 'svg'], [/^image/, 'image'], [/^application\/.*font/, 'font'], [/^font\/.*/, 'font'], [/^application\/json/, 'json'], [/^application\/ocsp-response/, 'oscp'], [/.*/, 'other'] // Always match 'other' if all else fails
+];
 
 /**
  * Utilities for getting content from HAR:s.
  * @module util
  */
 module.exports = {
-
   /**
    * Get the content type from mime type.
    * @param {string} mimeType The mimeType

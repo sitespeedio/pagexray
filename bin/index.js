@@ -7,7 +7,7 @@ const fs = require('fs');
 const minimist = require('minimist');
 
 const argv = minimist(process.argv.slice(2), {
-  boolean: ['pretty', 'includeAssets'],
+  boolean: ['pretty', 'includeAssets']
 });
 
 if (argv.help || !argv._[0]) {
@@ -15,8 +15,12 @@ if (argv.help || !argv._[0]) {
   console.log('   Usage: pagexray [options] pathToHarFile\n');
   console.log('   Options:');
   console.log('   --pretty              Pretty format the JSON [false]');
-  console.log('   --includeAssets       Include info about every asset in the result [false]');
-  console.log('   --firstParty          A regex defining if a URL is 1st or 3rd party URL');
+  console.log(
+    '   --includeAssets       Include info about every asset in the result [false]'
+  );
+  console.log(
+    '   --firstParty          A regex defining if a URL is 1st or 3rd party URL'
+  );
 } else {
   const har = JSON.parse(fs.readFileSync(argv._[0]));
   const pages = pagexray.convert(har, argv);

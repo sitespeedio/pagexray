@@ -16,6 +16,11 @@
     "no-extra-semi": 0,
     "no-mixed-spaces-and-tabs": 0,
     "no-underscore-dangle": 0,
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ]
   }
 }

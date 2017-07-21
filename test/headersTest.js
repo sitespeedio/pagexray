@@ -1,7 +1,7 @@
 'use strict';
 
-var assert = require('chai').assert,
-headers = require('../lib/headers')
+const assert = require('chai').assert;
+const headers = require('../lib/headers');
 
 describe('headers', function() {
 
@@ -25,6 +25,31 @@ describe('headers', function() {
 
       var flattenedHeaders = headers.flatten(harHeaders);
       assert.deepEqual(flattenedHeaders, expected);
+    });
+  });
+
+  describe('#getTimeSinceLastModified', () => {
+    it('should return -1 for missing last-modified header', () => {
+      const requestHeaders = {};
+      const timeSinceLastModified = headers.getTimeSinceLastModified(requestHeaders);
+      assert.equal(timeSinceLastModified, -1);
+    });
+
+    it('should return positive time with only last-modified header', () => {
+      const requestHeaders = {
+        'last-modified': new Date('05 October 2011 14:48 UTC').toISOString()
+      };
+      const timeSinceLastModified = headers.getTimeSinceLastModified(requestHeaders);
+      assert(timeSinceLastModified > 0);
+    });
+
+    it('should calculate diff between last-modified and date headers', () => {
+      const requestHeaders = {
+        'last-modified': new Date('05 October 2011 14:48 UTC').toISOString(),
+        'date': new Date('05 October 2011 14:49 UTC').toISOString()
+      };
+      const timeSinceLastModified = headers.getTimeSinceLastModified(requestHeaders);
+      assert.equal(timeSinceLastModified, 60);
     });
   });
 });

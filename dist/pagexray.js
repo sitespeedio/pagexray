@@ -194,21 +194,19 @@ module.exports = {
    * @returns {int} the time since the asset was last modified in seconds.
    */
   getTimeSinceLastModified: function getTimeSinceLastModified(headers) {
-    var now = new Date();
-    var lastModifiedDate = void 0;
-    if (headers['last-modified']) {
-      lastModifiedDate = new Date(headers['last-modified']);
-    } else if (headers.date) {
-      now = new Date(headers.date);
-    }
-
-    // TODO how do we define if we don't have a timing
-    // is it better to just return 0?
-    if (!lastModifiedDate) {
+    var lastModifiedHeader = headers['last-modified'];
+    if (!lastModifiedHeader) {
       return -1;
     }
 
-    return (now.getTime() - lastModifiedDate.getTime()) / 1000;
+    var lastModifiedMillis = Date.parse(lastModifiedHeader);
+
+    var createdMillis = Date.now();
+    if (headers.date) {
+      createdMillis = Date.parse(headers.date);
+    }
+
+    return (createdMillis - lastModifiedMillis) / 1000;
   }
 };
 
@@ -219,6 +217,52 @@ var util = require('./util');
 var collect = require('./collect');
 var Statistics = require('./statistics').Statistics;
 
+function removeUnderscore(_name) {
+  return _name.split('_')[1];
+}
+
+function addSitespeedMetrics(har, pages) {
+  var _loop = function _loop(i) {
+    var harPage = har.log.pages[i];
+    var pageXrayPage = pages[i];
+    pageXrayPage.meta.connectivity = harPage._meta._connectivity;
+    pageXrayPage.meta.screenshot = harPage._meta._screenshot;
+    pageXrayPage.meta.video = harPage._meta._video;
+    pageXrayPage.meta.result = harPage._meta._result;
+    pageXrayPage.visualMetrics = {};
+    // add all visual metrics and finetune the keys
+    Object.keys(harPage._visualMetrics).forEach(function (key) {
+      pageXrayPage.visualMetrics[removeUnderscore(key)] = harPage._visualMetrics[key];
+    });
+  };
+
+  // For each page in the HAR file, add the extra metrics in
+  // PageXray.
+  // Using Browsertime we know the order of the pages are the same as
+  // we generate in PageXray
+  for (var i = 0; i < har.log.pages.length; i++) {
+    _loop(i);
+  }
+}
+
+function cleanupStatistics(pages, config) {
+  pages.forEach(function (page) {
+    page.expireStats = page.expireStats.summarize();
+    page.lastModifiedStats = page.lastModifiedStats.summarize();
+    page.cookieStats = page.cookieStats.summarize();
+    page.totalDomains = Object.keys(page.domains).length;
+    if (!config.includeAssets) {
+      page.assets = [];
+    }
+    if (!config.firstParty) {
+      page.firstParty = {};
+      page.thirdParty = {};
+    } else {
+      page.firstParty.cookieStats = page.firstParty.cookieStats.summarize();
+      page.thirdParty.cookieStats = page.thirdParty.cookieStats.summarize();
+    }
+  });
+}
 /**
  * Convert a HAR object to a better page summary.
  * @module PageXray
@@ -235,7 +279,7 @@ module.exports = {
    */
   convertIndex: function convertIndex(har, index, config) {
     // TODO in the future only convert that specific run to save time
-    var pages = undefined.convert(har, config);
+    var pages = module.exports.convert(har, config);
     return pages[index];
   },
 
@@ -258,6 +302,7 @@ module.exports = {
         var redirects = util.getFinalURL(entry, har);
         currentPage = {
           url: har.log.entries[0].request.url,
+          meta: { browser: {} },
           finalUrl: redirects.url,
           baseDomain: util.getHostname(redirects.url),
           documentRedirects: redirects.chain.length === 0 ? 0 : redirects.chain.length - 1,
@@ -286,6 +331,14 @@ module.exports = {
           lastModifiedStats: new Statistics(),
           cookieStats: new Statistics()
         };
+
+        if (har.log.browser && har.log.browser.name) {
+          currentPage.meta.browser.name = har.log.browser.name;
+        }
+        if (har.log.browser && har.log.browser.version) {
+          currentPage.meta.browser.version = har.log.browser.version;
+        }
+
         testedPages[entry.pageref] = currentPage;
         pages.push(currentPage);
       }
@@ -328,22 +381,14 @@ module.exports = {
     });
 
     // cleanup the stats
-    pages.forEach(function (page) {
-      page.expireStats = page.expireStats.summarize();
-      page.lastModifiedStats = page.lastModifiedStats.summarize();
-      page.cookieStats = page.cookieStats.summarize();
-      page.totalDomains = Object.keys(page.domains).length;
-      if (!config.includeAssets) {
-        page.assets = [];
-      }
-      if (!config.firstParty) {
-        page.firstParty = {};
-        page.thirdParty = {};
-      } else {
-        page.firstParty.cookieStats = page.firstParty.cookieStats.summarize();
-        page.thirdParty.cookieStats = page.thirdParty.cookieStats.summarize();
-      }
-    });
+    cleanupStatistics(pages, config);
+
+    // If we have that extra meta field in the HAR, we are pretty sure
+    // it is generated using sitespeed.io/browsertime, so add those
+    // extra metrics
+    if (har.log.pages[0]._meta) {
+      addSitespeedMetrics(har, pages);
+    }
     return pages;
   }
 };

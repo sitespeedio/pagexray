@@ -585,20 +585,18 @@ module.exports = {
 
       // take the CPU data that starts with _cpu and remove
       // the _cpu part
-      cpu = Object.keys(harPage).filter(function (metricName) {
+      var cpu = Object.keys(harPage).filter(function (metricName) {
         return metricName.indexOf('_cpu') === 0;
       }).reduce(function (cpuData, name) {
         cpuData[name.split('.')[1]] = harPage[name];
         return cpuData;
       }, {});
-
-
-      pageXrayPage.cpu = cpu;
+      if (Object.keys(cpu).length > 0) {
+        pageXrayPage.cpu = cpu;
+      }
     };
 
     for (var i = 0; i < har.log.pages.length; i++) {
-      var cpu;
-
       _loop(i);
     }
   }

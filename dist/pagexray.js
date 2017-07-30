@@ -142,7 +142,7 @@ module.exports = {
   }
 };
 
-},{"./headers":2,"./util":5}],2:[function(require,module,exports){
+},{"./headers":2,"./util":6}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -215,35 +215,9 @@ module.exports = {
 
 var util = require('./util');
 var collect = require('./collect');
+var sitespeed = require('./sitespeed');
+var webpagetest = require('./webpagetest');
 var Statistics = require('./statistics').Statistics;
-
-function removeUnderscore(_name) {
-  return _name.split('_')[1];
-}
-
-function addSitespeedMetrics(har, pages) {
-  var _loop = function _loop(i) {
-    var harPage = har.log.pages[i];
-    var pageXrayPage = pages[i];
-    pageXrayPage.meta.connectivity = harPage._meta._connectivity;
-    pageXrayPage.meta.screenshot = harPage._meta._screenshot;
-    pageXrayPage.meta.video = harPage._meta._video;
-    pageXrayPage.meta.result = harPage._meta._result;
-    pageXrayPage.visualMetrics = {};
-    // add all visual metrics and finetune the keys
-    Object.keys(harPage._visualMetrics).forEach(function (key) {
-      pageXrayPage.visualMetrics[removeUnderscore(key)] = harPage._visualMetrics[key];
-    });
-  };
-
-  // For each page in the HAR file, add the extra metrics in
-  // PageXray.
-  // Using Browsertime we know the order of the pages are the same as
-  // we generate in PageXray
-  for (var i = 0; i < har.log.pages.length; i++) {
-    _loop(i);
-  }
-}
 
 function cleanupStatistics(pages, config) {
   pages.forEach(function (page) {
@@ -300,9 +274,10 @@ module.exports = {
     har.log.entries.forEach(function (entry) {
       if (!testedPages[entry.pageref]) {
         var redirects = util.getFinalURL(entry, har);
+        var httpVersion = redirects.chain.length === 0 ? entry.response.httpVersion : util.getEntryByURL(har.log.entries, redirects.url).response.httpVersion;
         currentPage = {
-          url: har.log.entries[0].request.url,
-          meta: { browser: {} },
+          url: entry.request.url,
+          meta: { browser: {}, startedDateTime: entry.startedDateTime },
           finalUrl: redirects.url,
           baseDomain: util.getHostname(redirects.url),
           documentRedirects: redirects.chain.length === 0 ? 0 : redirects.chain.length - 1,
@@ -312,9 +287,8 @@ module.exports = {
           headerSize: 0,
           requests: 0,
           missingCompression: 0,
-          // TODO this will not be right if redirected!!!
-          httpType: util.getConnectionType(har.log.entries[0].response.httpVersion),
-          httpVersion: util.getHTTPVersion(har.log.entries[0].response.httpVersion),
+          httpType: util.getConnectionType(httpVersion),
+          httpVersion: util.getHTTPVersion(httpVersion),
           contentTypes: collect.defaultContentTypes(),
           assets: [],
           responseCodes: {},
@@ -387,13 +361,36 @@ module.exports = {
     // it is generated using sitespeed.io/browsertime, so add those
     // extra metrics
     if (har.log.pages[0]._meta) {
-      addSitespeedMetrics(har, pages);
+      sitespeed.addMetrics(har, pages);
+    } else if (har.log.creator.name === 'WebPagetest') {
+      webpagetest.addMetrics(har, pages);
     }
     return pages;
   }
 };
 
-},{"./collect":1,"./statistics":4,"./util":5}],4:[function(require,module,exports){
+},{"./collect":1,"./sitespeed":4,"./statistics":5,"./util":6,"./webpagetest":7}],4:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+  addMetrics: function addMetrics(har, pages) {
+    // For each page in the HAR file, add the extra metrics in
+    // PageXray.
+    // Using Browsertime we know the order of the pages are the same as
+    // we generate in PageXray
+    for (var i = 0; i < har.log.pages.length; i++) {
+      var harPage = har.log.pages[i];
+      var pageXrayPage = pages[i];
+      pageXrayPage.meta.connectivity = harPage._meta.connectivity;
+      pageXrayPage.meta.screenshot = harPage._meta.screenshot;
+      pageXrayPage.meta.video = harPage._meta.video;
+      pageXrayPage.meta.result = harPage._meta.result;
+      pageXrayPage.visualMetrics = harPage._visualMetrics;
+    }
+  }
+};
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -450,7 +447,7 @@ module.exports = {
   Statistics: Statistics
 };
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var urlParser = require('url');
@@ -533,10 +530,81 @@ module.exports = {
       url: url,
       chain: chain
     };
+  },
+  getEntryByURL: function getEntryByURL(entries, url) {
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = entries[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var entry = _step.value;
+
+        if (entry.request.url === url) {
+          return entry;
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
   }
 };
 
-},{"url":10}],6:[function(require,module,exports){
+},{"url":12}],7:[function(require,module,exports){
+'use strict';
+
+module.exports = {
+  addMetrics: function addMetrics(har, pages) {
+    var _loop = function _loop(i) {
+      var harPage = har.log.pages[i];
+      var pageXrayPage = pages[i];
+      pageXrayPage.visualMetrics = {};
+      if (harPage._lastVisualChange) {
+        pageXrayPage.visualMetrics.LastVisualChange = harPage._lastVisualChange;
+      }
+      if (harPage._SpeedIndex) {
+        pageXrayPage.visualMetrics.SpeedIndex = harPage._SpeedIndex;
+      }
+      if (harPage.pageTimings._startRender) {
+        pageXrayPage.visualMetrics.FirstVisualChange = harPage.pageTimings._startRender;
+      }
+      if (harPage._visualComplete85) {
+        pageXrayPage.visualMetrics.VisualComplete85 = harPage._visualComplete85;
+      }
+
+      // take the CPU data that starts with _cpu and remove
+      // the _cpu part
+      cpu = Object.keys(harPage).filter(function (metricName) {
+        return metricName.indexOf('_cpu') === 0;
+      }).reduce(function (cpuData, name) {
+        cpuData[name.split('.')[1]] = harPage[name];
+        return cpuData;
+      }, {});
+
+
+      pageXrayPage.cpu = cpu;
+    };
+
+    for (var i = 0; i < har.log.pages.length; i++) {
+      var cpu;
+
+      _loop(i);
+    }
+  }
+};
+
+},{}],8:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -1073,7 +1141,7 @@ module.exports = {
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1159,7 +1227,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1246,13 +1314,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":7,"./encode":8}],10:[function(require,module,exports){
+},{"./decode":9,"./encode":10}],12:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1986,7 +2054,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":11,"punycode":6,"querystring":9}],11:[function(require,module,exports){
+},{"./util":13,"punycode":8,"querystring":11}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = {

@@ -219,7 +219,7 @@ var sitespeed = require('./sitespeed');
 var webpagetest = require('./webpagetest');
 var Statistics = require('./statistics').Statistics;
 
-function cleanupStatistics(pages, config) {
+function cleanupStatistics(pages, config, firstParty) {
   pages.forEach(function (page) {
     page.expireStats = page.expireStats.summarize();
     page.lastModifiedStats = page.lastModifiedStats.summarize();
@@ -228,7 +228,7 @@ function cleanupStatistics(pages, config) {
     if (!config.includeAssets) {
       page.assets = [];
     }
-    if (!config.firstParty) {
+    if (!firstParty) {
       page.firstParty = {};
       page.thirdParty = {};
     } else {
@@ -360,7 +360,7 @@ module.exports = {
     });
 
     // cleanup the stats
-    cleanupStatistics(pages, config);
+    cleanupStatistics(pages, config, firstParty);
 
     // If we have that extra meta field in the HAR, we are pretty sure
     // it is generated using sitespeed.io/browsertime, so add those

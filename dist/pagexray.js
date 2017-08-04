@@ -270,6 +270,11 @@ module.exports = {
     var pages = [];
     var currentPage = {};
     var testedPages = {};
+    var firstParty = void 0;
+
+    if (config.firstParty || har.log.pages[0]._meta && har.log.pages[0]._meta.firstParty) {
+      firstParty = config.firstParty || har.log.pages[0]._meta.firstParty;
+    }
 
     har.log.entries.forEach(function (entry) {
       if (!testedPages[entry.pageref]) {
@@ -334,12 +339,12 @@ module.exports = {
       currentPage.headerSize += entry.response.headersSize;
 
       // add first/third party info
-      if (config.firstParty) {
+      if (firstParty) {
         // is it a third party asset?
 
         var stats = currentPage.thirdParty;
 
-        if (asset.url.match(config.firstParty)) {
+        if (asset.url.match(firstParty)) {
           stats = currentPage.firstParty;
         }
 

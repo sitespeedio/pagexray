@@ -5,6 +5,7 @@ UNRELEASED
 ### Added
 * We now support running PageXray in the browser. Check dist/pagexray.min.js
 * If the HAR is generated with sitespeed.io > 5.4.3, we pickup some extra meta data: connection type, URL to the result page, URL to the video, URL to the screenshot. And we also add the browser and version if that is availible.
+* Pickup firstParty/thirdParty config from the HAR, override with config.
 
 version 0.14.3 2017-06-23
 ------------------------

@@ -16,7 +16,15 @@ function newContentData() {
     transferSize: 0,
     contentSize: 0,
     headerSize: 0,
-    requests: 0
+    requests: 0,
+    timings: {
+      blocked: 0,
+      dns: 0,
+      connect: 0,
+      send: 0,
+      wait: 0,
+      receive: 0
+    }
   };
 }
 
@@ -35,7 +43,14 @@ module.exports = {
     var requestHeaders = headers.flatten(request.headers);
     var responseHeaders = headers.flatten(response.headers);
 
-    var timing = getTiming(entry, 'blocked') + getTiming(entry, 'dns') + getTiming(entry, 'connect') + getTiming(entry, 'send') + getTiming(entry, 'wait') + getTiming(entry, 'receive');
+    var timings = {
+      blocked: getTiming(entry, 'blocked'),
+      dns: getTiming(entry, 'dns'),
+      connect: getTiming(entry, 'connect'),
+      send: getTiming(entry, 'send'),
+      wait: getTiming(entry, 'wait'),
+      receive: getTiming(entry, 'receive')
+    };
 
     return {
       type: contentType,
@@ -51,7 +66,7 @@ module.exports = {
         request: requestHeaders,
         response: responseHeaders
       },
-      timing: timing,
+      timings: timings,
       cookies: request.cookies.length
     };
   },
@@ -72,6 +87,13 @@ module.exports = {
     contentData.contentSize += asset.contentSize;
     contentData.headerSize += asset.headerSize;
     contentData.requests += 1;
+
+    contentData.timings.blocked += asset.timings.blocked;
+    contentData.timings.dns += asset.timings.dns;
+    contentData.timings.connect += asset.timings.connect;
+    contentData.timings.send += asset.timings.send;
+    contentData.timings.wait += asset.timings.wait;
+    contentData.timings.receive += asset.timings.receive;
 
     domains[domain] = contentData;
   },
@@ -407,12 +429,14 @@ var Statistics = function () {
     _classCallCheck(this, Statistics);
 
     this.values = [];
+    this.total = 0;
   }
 
   _createClass(Statistics, [{
     key: 'add',
     value: function add(value) {
       this.values.push(value);
+      this.total += value;
       return this;
     }
   }, {
@@ -440,7 +464,9 @@ var Statistics = function () {
       return {
         min: Number(values[0].toFixed(0)),
         median: median,
-        max: Number(values[values.length - 1].toFixed(0))
+        max: Number(values[values.length - 1].toFixed(0)),
+        total: Number(this.total.toFixed(0)),
+        values: values.length
       };
     }
   }]);

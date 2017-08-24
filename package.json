@@ -37,10 +37,10 @@
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "test": "mocha",
     "jsdoc": "jsdoc lib/* -d dist/doc",
-    "travis": "npm run eslint-check && npm run lint && npm run test",
+    "travis": "npm run eslint-check && npm run lint && npm run test && npm run dist",
     "browserify": "mkdirp dist && browserify lib/index.js -o dist/pagexray.js --standalone PageXray -t [ babelify --presets [ es2015 ] ] -p [ browserify-banner --template 'PageXray v<%= pkg.version %> - Xray your HAR file and know all about the page - https://github.com/sitespeedio/pagexray' ]",
     "uglify": "uglifyjs dist/pagexray.js --compress --mangle --comments '/pagexray/' > dist/pagexray.min.js",
-    "prepublishOnly": "npm run browserify && npm run uglify"
+    "dist": "npm run browserify && npm run uglify"
   },
   "engines": {
     "node": ">=6.10.3"

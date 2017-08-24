@@ -4,7 +4,7 @@
 
 ![Page Xray](img/pagexray.png)
 
-We love the HAR file but it's hard to actually see what the page includes only looking at the file. The PageXray converts a HAR file to a JSON format that is easier to read. We use the format internally in the coach and sitespeed.io.
+We love the HAR file but it's hard to actually see what the page includes only looking at the file. The PageXray converts a HAR file to a JSON format that is easier to read. We use the format internally in the coach and sitespeed.io. And with PageXray you can use it standalone in your browser.
 
 ## What do we collect?
 
@@ -39,6 +39,13 @@ let pagexray = require('pagexray');
 let har = // your HAR
 let pages = pagexray.convert(har);
 ```
+## Using in your browser
+Include the latest pagexray.min.js (that you find in the relases) on your page. PageXray is exposed as *window.PageXray*
+
+```javascript
+const pageXray = window.PageXray.convert(har);
+```
+
 ## Output
 All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
 

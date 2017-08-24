@@ -298,6 +298,12 @@ module.exports = {
       firstParty = config.firstParty || har.log.pages[0]._meta.firstParty;
     }
 
+    function sortByTime(a, b) {
+      return new Date(a.startedDateTime).getTime() - new Date(b.startedDateTime).getTime();
+    }
+
+    har.log.entries.sort(sortByTime);
+
     har.log.entries.forEach(function (entry) {
       if (!testedPages[entry.pageref]) {
         var redirects = util.getFinalURL(entry, har);
@@ -413,6 +419,7 @@ module.exports = {
       pageXrayPage.meta.video = harPage._meta.video;
       pageXrayPage.meta.result = harPage._meta.result;
       pageXrayPage.visualMetrics = harPage._visualMetrics;
+      pageXrayPage.meta.title = harPage.title;
     }
   }
 };
@@ -613,6 +620,8 @@ module.exports = {
       if (harPage._visualComplete85) {
         pageXrayPage.visualMetrics.VisualComplete85 = harPage._visualComplete85;
       }
+
+      pageXrayPage.meta.title = harPage.title;
 
       // take the CPU data that starts with _cpu and remove
       // the _cpu part

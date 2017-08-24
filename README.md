@@ -30,7 +30,7 @@ pagexray --pretty /path/to/my.har
 ```
 And if you want to get info per request/response:
 ```bash
-pagexray -includeAssets /path/to/my.har
+pagexray --includeAssets /path/to/my.har
 ```
 
 If you want to use it in node, use it like this:

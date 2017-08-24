@@ -46,22 +46,31 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
 [
   {
     "url": "https://www.sitespeed.io/",
+    "meta": {
+      "browser": {
+        "name": "Chrome",
+        "version": "60.0.3112.78"
+      },
+      "startedDateTime": "2017-08-24T18:26:29.077Z",
+      "connectivity": "native",
+      "title": "Sitespeed.io - Welcome to the wonderful world of Web Performance run 1"
+    },
     "finalUrl": "https://www.sitespeed.io/",
     "baseDomain": "www.sitespeed.io",
-    "documentRedirects": -1,
+    "documentRedirects": 0,
     "redirectChain": [],
-    "transferSize": 160894,
-    "contentSize": 221699,
-    "headerSize": 8027,
-    "requests": 12,
+    "transferSize": 98791,
+    "contentSize": 120776,
+    "headerSize": 0,
+    "requests": 10,
     "missingCompression": 0,
-    "httpType": "h1",
-    "httpVersion": "HTTP/1.1",
+    "httpType": "h2",
+    "httpVersion": "HTTP/2.0",
     "contentTypes": {
       "html": {
-        "transferSize": 7276,
-        "contentSize": 24962,
-        "headerSize": 776,
+        "transferSize": 8479,
+        "contentSize": 28279,
+        "headerSize": 0,
         "requests": 1
       },
       "css": {
@@ -72,68 +81,87 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
       },
       "javascript": {
         "transferSize": 0,
-        "contentSize": 43082,
+        "contentSize": 0,
         "headerSize": 0,
-        "requests": 1
+        "requests": 0
       },
       "image": {
-        "transferSize": 153620,
-        "contentSize": 153655,
-        "headerSize": 7253,
-        "requests": 10
+        "transferSize": 87309,
+        "contentSize": 85979,
+        "headerSize": 0,
+        "requests": 8
       },
       "font": {
         "transferSize": 0,
         "contentSize": 0,
         "headerSize": 0,
         "requests": 0
+      },
+      "favicon": {
+        "transferSize": 3003,
+        "contentSize": 6518,
+        "headerSize": 0,
+        "requests": 1
       }
     },
     "assets": [],
     "responseCodes": {
-      "200": 12
+      "200": 10
     },
     "firstParty": {},
     "thirdParty": {},
     "domains": {
       "www.sitespeed.io": {
+        "transferSize": 98791,
+        "contentSize": 120776,
+        "headerSize": -10,
         "requests": 10,
-        "transferSize": 160896,
-        "contentSize": 178582,
-        "headerSize": 8029
-      },
-      "ssl.google-analytics.com": {
-        "requests": 2,
-        "transferSize": -2,
-        "contentSize": 43117,
-        "headerSize": -2
+        "timings": {
+          "blocked": 169,
+          "dns": 0,
+          "connect": 0,
+          "send": 6,
+          "wait": 3624,
+          "receive": 104
+        }
       }
     },
     "expireStats": {
-      "min": 0,
-      "p10": 600,
+      "min": 600,
       "median": 31536000,
-      "p90": 31536000,
-      "p99": 31536000,
-      "max": 31536000
+      "max": 31536000,
+      "total": 283824600,
+      "values": 10
     },
     "lastModifiedStats": {
-      "min": 3121029,
-      "p10": 8475293,
-      "median": 8475313,
-      "p90": 8475339,
-      "p99": 578982140,
-      "max": 578982140
+      "min": 733347,
+      "median": 733444,
+      "max": 733480,
+      "total": 7334359,
+      "values": 10
     },
     "cookieStats": {
       "min": 0,
-      "p10": 0,
       "median": 0,
-      "p90": 0,
-      "p99": 0,
-      "max": 0
+      "max": 0,
+      "total": 0,
+      "values": 10
     },
-    "totalDomains": 2
+    "totalDomains": 1,
+    "visualMetrics": {
+      "FirstVisualChange": 617,
+      "SpeedIndex": 625,
+      "VisualComplete85": 617,
+      "LastVisualChange": 1033,
+      "VisualProgress": {
+        "0": 0,
+        "617": 98,
+        "633": 98,
+        "667": 98,
+        "850": 98,
+        "1033": 100
+      }
+    }
   }
 ]
 

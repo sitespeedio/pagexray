@@ -1,5 +1,9 @@
 # CHANGELOG - PageXray
 
+## Unreleased
+### Fixed
+* Fix expires and timeSinceLastModified parsing for invalid dates.
+
 version 1.0.0 2017-08-26
 ------------------------
 ### Added

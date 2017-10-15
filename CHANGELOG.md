@@ -3,6 +3,7 @@
 ## Unreleased
 ### Fixed
 * Fix expires and timeSinceLastModified parsing for invalid dates.
+* Avoid error if optional entry timings are missing in HAR.
 
 version 1.0.0 2017-08-26
 ------------------------

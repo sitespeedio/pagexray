@@ -1,6 +1,7 @@
 # CHANGELOG - PageXray
 
-## Unreleased
+version 1.0.1 2017-10-15
+------------------------
 ### Fixed
 * Fix expires and timeSinceLastModified parsing for invalid dates.
 * Avoid error if optional entry timings are missing in HAR.

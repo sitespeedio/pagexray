@@ -12,7 +12,7 @@ const argv = minimist(process.argv.slice(2), {
 });
 
 if (argv.version) {
-  console.log(`${packageInfo.name} ${packageInfo.version}`);
+  console.log(`${packageInfo.version}`);
 } else if (argv.help || !argv._[0]) {
   console.log('   Convert a HAR file to a (better) page summary.');
   console.log('   Usage: pagexray [options] pathToHarFile\n');

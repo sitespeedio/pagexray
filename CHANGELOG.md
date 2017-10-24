@@ -6,6 +6,9 @@ version 1.0.1 2017-10-15
 * Fix expires and timeSinceLastModified parsing for invalid dates.
 * Avoid error if optional entry timings are missing in HAR.
 
+## Added
+* Get the PageXray version with --version.
+
 version 1.0.0 2017-08-26
 ------------------------
 ### Added

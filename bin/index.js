@@ -5,12 +5,15 @@
 const pagexray = require('../lib/index');
 const fs = require('fs');
 const minimist = require('minimist');
+const packageInfo = require('../package');
 
 const argv = minimist(process.argv.slice(2), {
   boolean: ['pretty', 'includeAssets']
 });
 
-if (argv.help || !argv._[0]) {
+if (argv.version) {
+  console.log(`${packageInfo.name} ${packageInfo.version}`);
+} else if (argv.help || !argv._[0]) {
   console.log('   Convert a HAR file to a (better) page summary.');
   console.log('   Usage: pagexray [options] pathToHarFile\n');
   console.log('   Options:');

@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+UNRELEASED
+------------------------
+### Added
+* We moved to the NodeJS 8.x to prepare for when it becomes LTS.
+
 version 1.0.1 2017-10-15
 ------------------------
 ### Fixed

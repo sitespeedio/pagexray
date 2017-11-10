@@ -1,9 +1,9 @@
 # CHANGELOG - PageXray
 
-UNRELEASED
+version 2.0.0 2017-11-10
 ------------------------
 ### Added
-* We moved to the NodeJS 8.x to prepare for when it becomes LTS.
+* We moved to the NodeJS 8.x since it is now LTS.
 
 ### Fixed
 * Har files that includes the same url loaded with different http version (h1 vs h2) are now parsed correctly.

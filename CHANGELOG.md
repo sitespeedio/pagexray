@@ -7,6 +7,7 @@ UNRELEASED
 
 ### Fixed
 * Har files that includes the same url loaded with different http version (h1 vs h2) are now parsed correctly.
+* Handle redirects to paths (e.g. /foo) and convert to absolute urls.
 
 version 1.0.1 2017-10-15
 ------------------------

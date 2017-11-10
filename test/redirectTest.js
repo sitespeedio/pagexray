@@ -16,6 +16,14 @@ describe('Redirect', function() {
     return har.pagesFromTestHar('redirect/www.sitespeed.io-redirecting-to-https.har')
       .then((result) => {
         assert.strictEqual(result[0].finalUrl, 'https://www.sitespeed.io/');
+        assert.strictEqual(result[0].documentRedirects, 1);
+      });
+  });
+
+  it('should handle relative urls', function() {
+    return har.pagesFromTestHar('redirect/assa.har')
+      .then((result) => {
+        assert.strictEqual(result[0].finalUrl, 'https://www.assa.se/sv/site/assa/');
       });
   });
 

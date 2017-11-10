@@ -2,7 +2,8 @@
 
 const assert = require('chai').assert,
   util = require('../lib/util'),
-  forEach = require('lodash.foreach');
+  forEach = require('lodash.foreach'),
+  har = require('./helpers/har');
 
 describe('util', function() {
 
@@ -71,4 +72,15 @@ describe('util', function() {
     });
 
   });
+
+  describe('#getRedirectTarget', () => {
+    it('should not report redirects when non exist', () => {
+      return har.parseTestHar('domains/run.sitespeed.io.har')
+        .then((har) => {
+          const firstRequest = har.log.entries[0];
+          const result = util.getRedirectTarget(firstRequest.request.url, har, firstRequest.pageref);
+          assert.deepEqual(result.chain, [], 'Incorrectly parsed redirects');
+        });
+    })
+  })
 });

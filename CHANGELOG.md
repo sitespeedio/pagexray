@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.0.1 2017-12-19
+------------------------
+### Fixed
+* Chrome strips everything after # in the URL in the HAR, Firefox keeps it. Handle both [#49](https://github.com/sitespeedio/pagexray/issues/49).
+
 version 2.0.0 2017-11-10
 ------------------------
 ### Added

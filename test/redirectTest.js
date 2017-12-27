@@ -27,6 +27,13 @@ describe('Redirect', function() {
       });
   });
 
+  it('We should handle redirects back to the same page (one level)', function() {
+    return har.pagesFromTestHar('redirect/redirect-and-redirect-back.har')
+      .then((result) => {
+        assert.strictEqual(result[0].documentRedirects, 3);
+      });
+  });
+
   it('We should be able to identify frontend redirects or at least maybe guess them?');
 
 

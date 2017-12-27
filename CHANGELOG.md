@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.0.2 2017-12-27
+------------------------
+### Fixed
+* Fixed infinite loop for getting redirects URLs [#50](https://github.com/sitespeedio/pagexray/issues/50).
+
 version 2.0.1 2017-12-19
 ------------------------
 ### Fixed

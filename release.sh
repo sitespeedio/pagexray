@@ -7,4 +7,4 @@ set -e
 np $*
 
 
-bin/index.js --version  > ../sitespeed.io/docs/version/pagexray.txt
+bin/index.js --version  > ../sitespeed.io/docs/_includes/version/pagexray.txt

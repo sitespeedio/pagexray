@@ -1,5 +1,6 @@
 # CHANGELOG - PageXray
-UNRELEASED
+
+version 2.0.3 2018-01-14
 ------------------------
 ### Fixed
 * WebPageTest HAR files sometimes has request with timings that probably is wrong [#52](https://github.com/sitespeedio/pagexray/pull/52)

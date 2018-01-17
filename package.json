@@ -54,7 +54,7 @@
     "chai": "^4.1.0",
     "eslint": "^4.2.0",
     "eslint-config-prettier": "^2.3.0",
-    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-prettier": "^2.5.0",
     "jsdoc": "^3.5.3",
     "lodash.foreach": "^4.2.0",
     "lodash.pluck": "^3.1.2",

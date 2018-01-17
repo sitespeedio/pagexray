@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.0.4 2018-01-17
+------------------------
+### Fixed
+* If the HTTP version is unknown in the HAR, categorize it as unknown instead of h1/empty [#54](https://github.com/sitespeedio/pagexray/pull/54).
+
 version 2.0.3 2018-01-14
 ------------------------
 ### Fixed

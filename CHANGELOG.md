@@ -1,9 +1,9 @@
 # CHANGELOG - PageXray
 
-UNRELEASED
+version 2.1.0 2018-02-01
 ------------------------
 ### Added
-* Inlcude CPU metrics from Browsertime. Also align the WebPageTest CPU metrics with Browsertime (cpu.events.* instead of cpu.*).
+* Include CPU metrics from Browsertime. Also align the WebPageTest CPU metrics with Browsertime (cpu.events.* instead of cpu.*).
 
 version 2.0.4 2018-01-17
 ------------------------

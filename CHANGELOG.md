@@ -1,6 +1,6 @@
 # CHANGELOG - PageXray
 
-UNRELEASED
+version 2.2.0 2018-03-19
 ------------------------
 ### Added
 * Adding totalTime to results for each asset and domain [#59](https://github.com/sitespeedio/pagexray/pull/59).

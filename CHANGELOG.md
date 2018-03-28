@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.2.1 2018-03-28
+------------------------
+### Fixed
+* Collect the size of 304 responses see [sitespeed.io #1963](https://github.com/sitespeedio/sitespeed.io/issues/1963)
+
 version 2.2.0 2018-03-19
 ------------------------
 ### Added

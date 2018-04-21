@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+UNRELEASED
+------------------------
+### Fixed
+* Better way to find matching URL using the URL parser as an last alternartive [#57](https://github.com/sitespeedio/pagexray/pull/57).
+
 version 2.2.1 2018-03-28
 ------------------------
 ### Fixed

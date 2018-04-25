@@ -73,13 +73,13 @@ describe('util', function() {
 
   });
 
-  describe('#getRedirectTarget', () => {
+  describe('#getDocumentRequests', () => {
     it('should not report redirects when non exist', () => {
       return har.parseTestHar('domains/run.sitespeed.io.har')
         .then((har) => {
           const firstRequest = har.log.entries[0];
-          const result = util.getRedirectTarget(firstRequest.request.url, har, firstRequest.pageref);
-          assert.deepEqual(result.chain, [], 'Incorrectly parsed redirects');
+          const result = util.getDocumentRequests(har.log.entries, firstRequest.pageref);
+          assert(result.length, 1, 'Incorrectly parsed redirects');
         });
     })
   })

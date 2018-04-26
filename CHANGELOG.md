@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.2.2 2018-04-25
+------------------------
+### Fixed
+* Better way to handle URL redirects -> more correct and avoid errors.
+
 version 2.2.1 2018-03-28
 ------------------------
 ### Fixed

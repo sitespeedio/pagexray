@@ -31,6 +31,39 @@ describe('Redirect', function() {
     return har.pagesFromTestHar('redirect/redirect-and-redirect-back.har')
       .then((result) => {
         assert.strictEqual(result[0].documentRedirects, 3);
+        assert.strictEqual(result[0].finalUrl, 'https://checkout.mytoys.de/checkout/registration');
+      });
+  });
+
+  it('Should parse arcelormittal.com', function() {
+    return har.pagesFromTestHar('redirect/arcelormittal.com.har')
+      .then((result) => {
+        assert.strictEqual(result[0].documentRedirects, 4);
+        assert.strictEqual(result[0].finalUrl, 'http://m.corporate.arcelormittal.com/');
+      });
+  });
+
+  it('Should parse mousel.lu', function() {
+    return har.pagesFromTestHar('redirect/mousel.lu.har')
+      .then((result) => {
+        assert.strictEqual(result[0].documentRedirects, 1);
+        assert.strictEqual(result[0].finalUrl, 'http://www.brasseriedeluxembourg.lu/');
+      });
+  });
+
+  it('Should parse www.etat.lu', function() {
+    return har.pagesFromTestHar('redirect/www.etat.lu.har')
+      .then((result) => {
+        assert.strictEqual(result[0].documentRedirects, 2);
+        assert.strictEqual(result[0].finalUrl, 'http://www.etat.public.lu/fr/index.php');
+      });
+  });
+
+  it('Should parse mytoys.de.har', function() {
+    return har.pagesFromTestHar('redirect/mytoys.de.har')
+      .then((result) => {
+        assert.strictEqual(result[0].documentRedirects, 3);
+        assert.strictEqual(result[0].finalUrl, 'https://checkout.mytoys.de/checkout/registration');
       });
   });
 

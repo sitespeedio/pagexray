@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.3.0 2018-05-12
+------------------------
+### Added
+* Count requests/size that happens after onContentLoad and onLoad.
+
 version 2.2.2 2018-04-25
 ------------------------
 ### Fixed

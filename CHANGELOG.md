@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.3.1 2018-05-15
+------------------------
+### Fixed
+* If one of the WebPageTest runs failed, PageXray was broken.
+
 version 2.3.0 2018-05-12
 ------------------------
 ### Added

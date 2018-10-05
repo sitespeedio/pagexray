@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.4.0 2018-10-05
+------------------------
+### Added
+* We missed video/audio/xml/pdf as content type so we categorised them as others. Lets be specific instead [#67](https://github.com/sitespeedio/pagexray/pull/67).
+
 version 2.3.1 2018-05-15
 ------------------------
 ### Fixed

@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.5.0 2018-11-16
+------------------------
+### Added
+* If you don't add your own firstparty regex, we set a default one based on the hostname. If your hostname is www.sitespeed.io we will use *.sitespeed.* [#68](https://github.com/sitespeedio/pagexray/pull/68).
+
 version 2.4.0 2018-10-05
 ------------------------
 ### Added

@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.5.1 2018-12-17
+------------------------
+### Fixed
+* Using a HAR file from Browsertime without meta data made converting fail.
+
 version 2.5.0 2018-11-16
 ------------------------
 ### Added

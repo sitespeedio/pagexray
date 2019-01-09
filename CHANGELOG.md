@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.5.2 2019-01.09
+------------------------
+### Fixed
+* If the HAR contains a URL for a page, use that URL (to get the right URL for a SPA) [#69](https://github.com/sitespeedio/pagexray/pull/69)
+
 version 2.5.1 2018-12-17
 ------------------------
 ### Fixed

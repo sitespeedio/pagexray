@@ -1,6 +1,11 @@
 # CHANGELOG - PageXray
 
-version 2.5.2 2019-01.09
+version 2.5.3 2019-01-20
+------------------------
+### Fixed
+* Fixing null error with some tracking pixels , thank you [rohit-nar](https://github.com/rohit-nair) for the PR [#71](https://github.com/sitespeedio/pagexray/pull/71)
+
+version 2.5.2 2019-01-09
 ------------------------
 ### Fixed
 * If the HAR contains a URL for a page, use that URL (to get the right URL for a SPA) [#69](https://github.com/sitespeedio/pagexray/pull/69)

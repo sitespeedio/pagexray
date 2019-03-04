@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.5.4 2019-03-04
+------------------------
+### Fixed
+* Test first party domain on the actual domain instead on the URL [#73](https://github.com/sitespeedio/pagexray/pull/73) since some measuring scripts include the URL in GET parameters that break the calculation.
+
 version 2.5.3 2019-01-20
 ------------------------
 ### Fixed

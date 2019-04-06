@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.5.5 2019-04-06
+------------------------
+### Fixed
+* Counting the amount of requests per page, was broken in some cases. The order of the entries in the HAR file used to matter, fixed in [#74](https://github.com/sitespeedio/pagexray/pull/74).
+
 version 2.5.4 2019-03-04
 ------------------------
 ### Fixed

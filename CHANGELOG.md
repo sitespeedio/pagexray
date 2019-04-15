@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.5.6 2019-04-16
+------------------------
+### Fixed
+* Handle pages that doesn't have any requests [#75](https://github.com/sitespeedio/pagexray/pull/75).
+
 version 2.5.5 2019-04-06
 ------------------------
 ### Fixed

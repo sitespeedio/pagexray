@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.5.7 2019-05-26
+------------------------
+### Fixed
+* Fix for categorise Wikipedia first/third party correct [#76](https://github.com/sitespeedio/pagexray/pull/76)
+
 version 2.5.6 2019-04-16
 ------------------------
 ### Fixed

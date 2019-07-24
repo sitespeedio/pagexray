@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '8'
+- '10'
 script:
 - npm run travis
 notifications:
@@ -16,5 +16,5 @@ deploy:
    - "dist/pagexray.min.js"
   on:
     tags: true
-    node: '8'
+    node: '10'
     repo: sitespeedio/pagexray

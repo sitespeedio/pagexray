@@ -1,5 +1,11 @@
 # CHANGELOG - PageXray
 
+version 2.5.8 2019-08-26
+------------------------
+### Fixed
+* Updated dependencies [#79](https://github.com/sitespeedio/pagexray/pull/79).
+
+
 version 2.5.7 2019-05-26
 ------------------------
 ### Fixed

@@ -1,10 +1,14 @@
 # CHANGELOG - PageXray
 
+version 2.5.9 2019-10-11
+------------------------
+### Fixed
+* Generic copy meta tag from sitespeed.io instead of specific fields [#80](https://github.com/sitespeedio/pagexray/pull/80).
+
 version 2.5.8 2019-08-26
 ------------------------
 ### Fixed
 * Updated dependencies [#79](https://github.com/sitespeedio/pagexray/pull/79).
-
 
 version 2.5.7 2019-05-26
 ------------------------

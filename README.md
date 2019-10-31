@@ -38,8 +38,8 @@ pagexray --includeAssets /path/to/my.har
 If you want to use it in node, use it like this:
 ```node
 const fs = require("fs");
-const pagexray = require('pagexray');
-const har = JSON.parse(fs.readFileSync('/path/to/my.har'));
+const pagexray = require("pagexray");
+const har = JSON.parse(fs.readFileSync("/path/to/my.har"));
 
 let pages = pagexray.convert(har);
 console.log(pages)

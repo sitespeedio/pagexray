@@ -37,9 +37,12 @@ pagexray --includeAssets /path/to/my.har
 
 If you want to use it in node, use it like this:
 ```node
-let pagexray = require('pagexray');
-let har = // your HAR
+const fs = require("fs");
+const pagexray = require("pagexray");
+const har = JSON.parse(fs.readFileSync("/path/to/my.har"));
+
 let pages = pagexray.convert(har);
+console.log(pages)
 ```
 ## Using in your browser
 Include the latest pagexray.min.js (that you find in the relases) on your page. PageXray is exposed as *window.PageXray*

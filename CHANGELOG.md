@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.5.10 2020-06-20
+------------------------
+### Fixed
+* Updated minimist to 1.2.5
+
 version 2.5.9 2019-10-11
 ------------------------
 ### Fixed

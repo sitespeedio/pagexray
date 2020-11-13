@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 2.6.0 2020-13-13
+------------------------
+### Added
+* If an asset has the HTML/text content it will be added to the asset section [#90](https://github.com/sitespeedio/pagexray/pull/90).
+
 version 2.5.10 2020-06-20
 ------------------------
 ### Fixed

@@ -1,6 +1,6 @@
 # PageXray
 
-[![Build status][travis-image]][travis-url]
+![Unit tests](https://github.com/sitespeedio/pagexray/workflows/Unit%20tests/badge.svg?branch=main)
 
 ![Page Xray](img/pagexray.png)
 
@@ -178,6 +178,3 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
 ]
 
 ```
-
-[travis-image]: https://img.shields.io/travis/sitespeedio/pagexray.svg?style=flat-square
-[travis-url]: https://travis-ci.org/sitespeedio/pagexray

@@ -1,5 +1,9 @@
 # CHANGELOG - PageXray
 
+version 3.1.1 2020-12-11
+------------------------
+### Fixed
+* Ooops, missed to expose the third party cookie data [#97](https://github.com/sitespeedio/pagexray/pull/97).
 
 version 3.1.0 2020-12-11
 ------------------------

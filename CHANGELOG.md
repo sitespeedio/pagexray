@@ -1,6 +1,17 @@
 # CHANGELOG - PageXray
 
-version 2.6.0 2020-13-13
+version 3.0.0 2020-12-11
+------------------------
+### Changed
+* Request/response headers are now returned with name/value keys to handle headers with the same name. This will only affect you if you get assets from PageXray [#93](https://github.com/sitespeedio/pagexray/pull/93).
+
+* Removed cookie statistics field since it was broken. Report number of first and third party cookies instead.
+### Added
+* PageXray can categorise connections as H3 [#95](https://github.com/sitespeedio/pagexray/pull/95).
+### Fixed
+* Getting cookies was broken. Fixed in [#92](https://github.com/sitespeedio/pagexray/pull/92), [#93](https://github.com/sitespeedio/pagexray/pull/93) and [#94](https://github.com/sitespeedio/pagexray/pull/94).
+
+version 2.6.0 2020-11-13
 ------------------------
 ### Added
 * If an asset has the HTML/text content it will be added to the asset section [#90](https://github.com/sitespeedio/pagexray/pull/90).

@@ -1,5 +1,11 @@
 # CHANGELOG - PageXray
 
+
+version 3.1.0 2020-12-11
+------------------------
+### Added
+* Get third party domains for cookies [#96](https://github.com/sitespeedio/pagexray/pull/96).
+
 version 3.0.0 2020-12-11
 ------------------------
 ### Changed

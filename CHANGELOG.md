@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 4.0.0 2020-12-12
+------------------------
+### Changed
+* The new header structure actually sucked. Instead follow other tools and flatten headers returning an array [#98](https://github.com/sitespeedio/pagexray/pull/98).
+
 version 3.1.1 2020-12-11
 ------------------------
 ### Fixed

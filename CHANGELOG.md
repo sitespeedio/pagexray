@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 4.1.0 2021-04-08
+------------------------
+### Added
+* Attach Google Web Vitals data from Browsertime [#101](https://github.com/sitespeedio/pagexray/pull/101).
+
 version 4.0.0 2020-12-12
 ------------------------
 ### Changed

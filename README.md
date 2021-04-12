@@ -41,7 +41,10 @@ const fs = require("fs");
 const pagexray = require("pagexray");
 const har = JSON.parse(fs.readFileSync("/path/to/my.har"));
 
-let pages = pagexray.convert(har);
+const pages = pagexray.convert(har);
+// Or ofyou want to include the each asset information
+// const pages = pagexray.convert(har, {includeAssets: true});
+
 console.log(pages)
 ```
 ## Using in your browser

@@ -1,5 +1,10 @@
 # CHANGELOG - PageXray
 
+version 4.2.0 2021-05-28
+------------------------
+### Added
+* Attach info about render blocking assets coming/working in Chrome 92 [#104](https://github.com/sitespeedio/pagexray/pull/104).
+
 version 4.1.0 2021-04-08
 ------------------------
 ### Added

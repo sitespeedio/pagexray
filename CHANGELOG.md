@@ -1,5 +1,11 @@
 # CHANGELOG - PageXray
 
+
+version 4.3.0 2021-06-02
+------------------------
+### Added 
+* Inlcude request method per asset [#105](https://github.com/sitespeedio/pagexray/pull/105). 
+
 version 4.2.0 2021-05-28
 ------------------------
 ### Added

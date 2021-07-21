@@ -1,6 +1,6 @@
 # CHANGELOG - PageXray
 
-## 4.3.1 2021-06-21
+## 4.3.1 2021-07-21
 ### Added 
 * Added missing in_body_parser_blocking render blocking info for Chrome.
 

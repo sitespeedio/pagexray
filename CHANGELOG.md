@@ -1,4 +1,9 @@
 # CHANGELOG - PageXray
+
+## 4.3.1 2021-06-21
+### Added 
+* Added missing in_body_parser_blocking render blocking info for Chrome.
+
 ## 4.3.0 2021-06-02
 ### Added 
 * Include request method per asset [#105](https://github.com/sitespeedio/pagexray/pull/105). 

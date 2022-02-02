@@ -27,7 +27,7 @@ describe('util', function() {
     forEach(typeToMimeMapping, function(mimes, type) {
       forEach(mimes, function(mime) {
         it('should categorize ' + mime + ' as ' + type, function() {
-          const result = util.getContentType(mime);
+          const result = util.getContentType(mime, 'https:/www.test.com/test.strange');
           assert.equal(result, type);
         });
       });

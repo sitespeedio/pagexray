@@ -33,4 +33,12 @@ describe('Check content types', function() {
         assert.strictEqual(types.other.requests, 21, 'We couldnt get the right number of other');
       });
   });
+
+  it('should be able to fallback to file endings', function() {
+    return har.pagesFromTestHar('contentTypes/ferguson.har')
+      .then((result) => {
+        const types = result[0].contentTypes;
+        assert.strictEqual(types.font.requests, 8, 'We couldnt get the right number of fonts');
+      });
+  });
 });

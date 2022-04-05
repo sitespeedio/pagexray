@@ -1,5 +1,8 @@
 # CHANGELOG - PageXray
 
+## 4.4.1 2022-04-05
+### Fixed
+* Bumped minimist to 1.2.6
 ## 4.4.0 2022-02-04
 ### Added
 * Fallback if mime types aren't mapped and use file endings. At the moment we fallback for some of the font types [#109](https://github.com/sitespeedio/pagexray/pull/109).

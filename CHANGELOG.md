@@ -1,5 +1,8 @@
 # CHANGELOG - PageXray
 
+## 4.4.2 UNRELEASED
+### Fixed
+* Added missing SSL timings to the time per domain [#117](https://github.com/sitespeedio/pagexray/pull/117)
 ## 4.4.1 2022-04-05
 ### Fixed
 * Bumped minimist to 1.2.6

@@ -3,6 +3,7 @@
 ## 4.4.3 2023-08-31
 ### Fixed
 * If the meta section from a HAR file from Browsertime was missing, we didn't catch that. Fixed in [#124](https://github.com/sitespeedio/pagexray/pull/124).
+* Update to latest minimist [#122](https://github.com/sitespeedio/pagexray/pull/122).
 
 ## 4.4.2 2022-05-05
 ### Fixed

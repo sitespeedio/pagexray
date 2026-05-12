@@ -54,8 +54,12 @@ describe('headers', function() {
     });
 
     it('should handle invalid date header', () => {
+      // last-modified is kept comfortably in the future so the
+      // `Date.now()` fallback (used when `date` is unparseable)
+      // still yields a negative diff — exercising the fallback
+      // path is the point of this test.
       const requestHeaders = {
-        'last-modified': ['Wed, 26 Aug 2025 12:37:50 GMT'],
+        'last-modified': ['Wed, 26 Aug 2099 12:37:50 GMT'],
         'date': ['Wedding']
       };
       const timeSinceLastModified = headers.getTimeSinceLastModified(requestHeaders);

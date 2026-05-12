@@ -1,5 +1,12 @@
 # CHANGELOG - PageXray
 
+## 4.5.0 2026-05-12
+### Added
+* Surface page-level style recalculation work on `renderBlocking.recalculateStyle`
+ (elements touched and duration before FCP/LCP) so consumers can show how much style
+ work happened on the way to each
+ paint milestone [#127](https://github.com/sitespeedio/pagexray/pull/127).
+
 ## 4.4.4 2023-08-31
 ### Fixed
 * Added a safer header check [#125](https://github.com/sitespeedio/pagexray/pull/125).
@@ -20,12 +27,12 @@
 * Fallback if mime types aren't mapped and use file endings. At the moment we fallback for some of the font types [#109](https://github.com/sitespeedio/pagexray/pull/109).
 
 ## 4.3.1 2021-07-21
-### Added 
+### Added
 * Added missing in_body_parser_blocking render blocking info for Chrome.
 
 ## 4.3.0 2021-06-02
-### Added 
-* Include request method per asset [#105](https://github.com/sitespeedio/pagexray/pull/105). 
+### Added
+* Include request method per asset [#105](https://github.com/sitespeedio/pagexray/pull/105).
 
 ## 4.2.0 2021-05-28
 ### Added
@@ -171,7 +178,7 @@
 * You can now run PageXray in the browser! Check Github releases to download that version.
 * If the HAR is generated with sitespeed.io > 5.4.3, we pickup some extra meta data: connection type, URL to the result page, URL to the video, URL to the screenshot. And we also add the browser and version if that is availible.
 * Pickup firstParty/thirdParty config from the HAR, override with config.
-* Collect timings per domain. 
+* Collect timings per domain.
 * Collect timings per timing type instead of total. This change is not backward compatible and you need to calculate the total yourself.
 
 ## 0.14.3 2017-06-23

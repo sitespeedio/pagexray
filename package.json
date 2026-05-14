@@ -43,7 +43,7 @@
     "dist": "npm run browserify && npm run uglify"
   },
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=20.0.0"
   },
   "devDependencies": {
     "babelify": "10.0.0",

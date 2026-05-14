@@ -1,6 +1,10 @@
 # CHANGELOG - PageXray
 
-## 4.6.0 2026-05-14
+## 5.0.0 - 2026-05-14
+
+### Changed
+* Node.js 22 is minumium.
+
 ### Fixed
 * Classify `HTTP/3` / `HTTP/3.0` connections as `h3` (previously only the lowercase `h3` / `h3-29` shorthand was recognised — the canonical form fell through to `h1`) [#128](https://github.com/sitespeedio/pagexray/pull/128).
 * Parse `Cache-Control` directives case-insensitively (RFC 7234 §5.2). `Max-Age=42` is now read as 42 instead of 0, and `No-Cache` / `No-Store` are honoured [#128](https://github.com/sitespeedio/pagexray/pull/128).

@@ -14,6 +14,10 @@
 * `defaultContentTypes` now includes `favicon` so every page has a consistent shape (matches the example in the README).
 * `xml` is now considered for `missingCompression` reporting.
 
+### Added
+* CLI can now read a HAR from stdin: `pagexray -` or piping into `pagexray` with no path argument.
+* CLI prints a friendly error to stderr and exits 1 when the file is missing or the input isn't valid JSON (previously threw a raw Node stack trace).
+
 ## 4.5.0 2026-05-12
 ### Added
 * Surface page-level style recalculation work on `renderBlocking.recalculateStyle`

@@ -1,26 +1,25 @@
 # CHANGELOG - PageXray
 
-## Unreleased
+## 4.6.0 2026-05-14
 ### Fixed
-* Classify `HTTP/3` / `HTTP/3.0` connections as `h3` (previously only the lowercase `h3` / `h3-29` shorthand was recognised — the canonical form fell through to `h1`).
-* Parse `Cache-Control` directives case-insensitively (RFC 7234 §5.2). `Max-Age=42` is now read as 42 instead of 0, and `No-Cache` / `No-Store` are honoured.
-* Replace the deprecated `url.parse` (Node DEP0169) with the WHATWG `URL` parser in `getHostname`.
-* Stop throwing in `getDocumentRequests` when a page has no matching entries — return an empty array instead.
-* `missingCompression` was flagging every large text asset, including gzipped ones, because `headers.flatten` wraps values in arrays and the encoding check compared the array to a string. Unwrap before comparing, accept compound codings (`br, gzip`), and recognise `zstd`.
-* Match the `Domain=` cookie attribute case-insensitively (RFC 6265 §5.2) so third-party cookies set with lowercase `domain=` are detected.
-* Recognise common two-label public suffixes (`.co.jp`, `.com.br`, `.com.au`, ...) in `getMainDomain` so the auto-generated first-party regex isn't wrong for non-`.co.uk` country domains.
-
-### Changed
-* `defaultContentTypes` now includes `favicon` so every page has a consistent shape (matches the example in the README).
-* `xml` is now considered for `missingCompression` reporting.
-* `engines.node` bumped from `>=8.9.0` to `>=22.0.0` (the current Node.js LTS).
-* Test runner switched from Mocha + Chai to AVA, matching the rest of the sitespeed.io / browsertime ecosystem. The `.mocharc.json` is gone and the test helpers no longer depend on bluebird or lodash.
-* ESLint upgraded from 8 to 9 with the new flat config (`eslint.config.js` replaces `.eslintrc.json` and `.eslintignore`).
-* All devDependencies bumped to current major versions: prettier 3, browserify 17, browserify-banner 2, @babel/core + preset-env 7.29, jsdoc 4. The abandoned `uglify-es` is replaced by `terser`, and `mkdirp` is dropped in favour of native `fs.mkdirSync({recursive:true})` in the browserify script.
+* Classify `HTTP/3` / `HTTP/3.0` connections as `h3` (previously only the lowercase `h3` / `h3-29` shorthand was recognised — the canonical form fell through to `h1`) [#128](https://github.com/sitespeedio/pagexray/pull/128).
+* Parse `Cache-Control` directives case-insensitively (RFC 7234 §5.2). `Max-Age=42` is now read as 42 instead of 0, and `No-Cache` / `No-Store` are honoured [#128](https://github.com/sitespeedio/pagexray/pull/128).
+* Replace the deprecated `url.parse` (Node DEP0169) with the WHATWG `URL` parser in `getHostname` [#128](https://github.com/sitespeedio/pagexray/pull/128).
+* Stop throwing in `getDocumentRequests` when a page has no matching entries — return an empty array instead [#128](https://github.com/sitespeedio/pagexray/pull/128).
+* `missingCompression` was flagging every large text asset, including gzipped ones, because `headers.flatten` wraps values in arrays and the encoding check compared the array to a string. Unwrap before comparing, accept compound codings (`br, gzip`), and recognise `zstd` [#129](https://github.com/sitespeedio/pagexray/pull/129).
+* Match the `Domain=` cookie attribute case-insensitively (RFC 6265 §5.2) so third-party cookies set with lowercase `domain=` are detected [#129](https://github.com/sitespeedio/pagexray/pull/129).
+* Recognise common two-label public suffixes (`.co.jp`, `.com.br`, `.com.au`, ...) in `getMainDomain` so the auto-generated first-party regex isn't wrong for non-`.co.uk` country domains [#129](https://github.com/sitespeedio/pagexray/pull/129).
+* `defaultContentTypes` now includes `favicon` so every page has a consistent shape (matches the example in the README) [#129](https://github.com/sitespeedio/pagexray/pull/129).
+* `xml` is now considered for `missingCompression` reporting [#129](https://github.com/sitespeedio/pagexray/pull/129).
+* `engines.node` bumped from `>=8.9.0` to `>=22.0.0` (the current Node.js LTS), and the GitHub Actions matrix now runs on Node 22 + 24 [#132](https://github.com/sitespeedio/pagexray/pull/132), [#133](https://github.com/sitespeedio/pagexray/pull/133).
+* Test runner switched from Mocha + Chai to AVA, matching the rest of the sitespeed.io / browsertime ecosystem. Test helpers no longer depend on bluebird or lodash [#133](https://github.com/sitespeedio/pagexray/pull/133).
+* ESLint upgraded from 8 to 9 with the new flat config (`eslint.config.js` replaces `.eslintrc.json` and `.eslintignore`) [#133](https://github.com/sitespeedio/pagexray/pull/133).
+* All devDependencies bumped to current major versions: prettier 3, browserify 17, browserify-banner 2, @babel/core + preset-env 7.29, jsdoc 4. The abandoned `uglify-es` is replaced by `terser`, and `mkdirp` is dropped in favour of native `fs.mkdirSync({recursive:true})` in the browserify script [#133](https://github.com/sitespeedio/pagexray/pull/133).
 
 ### Added
-* CLI can now read a HAR from stdin: `pagexray -` or piping into `pagexray` with no path argument.
-* CLI prints a friendly error to stderr and exits 1 when the file is missing or the input isn't valid JSON (previously threw a raw Node stack trace).
+* CLI can now read a HAR from stdin: `pagexray -` or piping into `pagexray` with no path argument [#131](https://github.com/sitespeedio/pagexray/pull/131).
+* CLI prints a friendly error to stderr and exits 1 when the file is missing or the input isn't valid JSON (previously threw a raw Node stack trace) [#131](https://github.com/sitespeedio/pagexray/pull/131).
+* README updated to drop the long-removed `cookieStats` example block and document fields added across 3.x / 4.x (`fullyLoaded`, `afterOnLoad`, `afterOnContentLoad`, `renderBlocking`, `googleWebVitals`, `cpu`, `firstPartyRegEx`) [#130](https://github.com/sitespeedio/pagexray/pull/130).
 
 ## 4.5.0 2026-05-12
 ### Added

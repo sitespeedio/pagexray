@@ -101,4 +101,17 @@ describe('util', function() {
       assert.equal(util.getConnectionType('h3-29'), 'h3');
     });
   });
+
+  describe('#getMainDomain', () => {
+    it('should peel off two-label public suffixes beyond .co.uk', () => {
+      // Previously only `.co.uk` was recognised, so `bbc.com.br` collapsed
+      // to `com` and the auto-firstParty regex pulled in unrelated sites.
+      assert.equal(util.getMainDomain('www.bbc.co.uk'), 'bbc');
+      assert.equal(util.getMainDomain('www.bbc.com.br'), 'bbc');
+      assert.equal(util.getMainDomain('www.bbc.co.jp'), 'bbc');
+      assert.equal(util.getMainDomain('www.bbc.com.au'), 'bbc');
+      assert.equal(util.getMainDomain('www.bbc.com'), 'bbc');
+      assert.equal(util.getMainDomain('sitespeed.io'), 'sitespeed');
+    });
+  });
 });

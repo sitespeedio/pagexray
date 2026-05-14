@@ -6,6 +6,13 @@
 * Parse `Cache-Control` directives case-insensitively (RFC 7234 §5.2). `Max-Age=42` is now read as 42 instead of 0, and `No-Cache` / `No-Store` are honoured.
 * Replace the deprecated `url.parse` (Node DEP0169) with the WHATWG `URL` parser in `getHostname`.
 * Stop throwing in `getDocumentRequests` when a page has no matching entries — return an empty array instead.
+* `missingCompression` was flagging every large text asset, including gzipped ones, because `headers.flatten` wraps values in arrays and the encoding check compared the array to a string. Unwrap before comparing, accept compound codings (`br, gzip`), and recognise `zstd`.
+* Match the `Domain=` cookie attribute case-insensitively (RFC 6265 §5.2) so third-party cookies set with lowercase `domain=` are detected.
+* Recognise common two-label public suffixes (`.co.jp`, `.com.br`, `.com.au`, ...) in `getMainDomain` so the auto-generated first-party regex isn't wrong for non-`.co.uk` country domains.
+
+### Changed
+* `defaultContentTypes` now includes `favicon` so every page has a consistent shape (matches the example in the README).
+* `xml` is now considered for `missingCompression` reporting.
 
 ## 4.5.0 2026-05-12
 ### Added

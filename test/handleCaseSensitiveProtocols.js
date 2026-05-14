@@ -1,13 +1,12 @@
 'use strict';
-let assert = require('assert'),
-  pluck = require('lodash.pluck'),
-  har = require('./helpers/har');
 
-describe('Handle URLs with different different cases', function() {
-  it('Should handle HTTPS and https', function() {
-    return har.pagesFromTestHar('case-sensitive-protocol.har').then(result => {
-      const exectedUrls = ['https://www.verizonwireless.com/devices'];
-      assert.deepEqual(pluck(result, 'url'), exectedUrls);
-    });
-  });
+const test = require('ava');
+const har = require('./helpers/har');
+
+test('Handle URLs with different cases: should handle HTTPS and https', t => {
+  const result = har.pagesFromTestHar('case-sensitive-protocol.har');
+  t.deepEqual(
+    result.map(r => r.url),
+    ['https://www.verizonwireless.com/devices']
+  );
 });

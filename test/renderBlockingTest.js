@@ -1,33 +1,32 @@
 'use strict';
 
-const assert = require('chai').assert,
-  har = require('./helpers/har');
+const test = require('ava');
+const har = require('./helpers/har');
 
-describe('renderBlocking.recalculateStyle', function() {
-  it('should surface page-level style recalculation work for browsertime HARs', function() {
-    return har.pagesFromTestHar('sitespeed/browsertime-recalculate-style.har')
-      .then(pages => {
-        const rb = pages[0].renderBlocking;
-        assert.isObject(rb, 'renderBlocking should exist');
-        assert.isObject(rb.recalculateStyle, 'recalculateStyle should be attached');
-        assert.isObject(rb.recalculateStyle.beforeFCP);
-        assert.isObject(rb.recalculateStyle.beforeLCP);
-        assert.isNumber(rb.recalculateStyle.beforeFCP.elements);
-        assert.isNumber(rb.recalculateStyle.beforeFCP.durationInMillis);
-        assert.isNumber(rb.recalculateStyle.beforeLCP.elements);
-        assert.isNumber(rb.recalculateStyle.beforeLCP.durationInMillis);
-      });
-  });
+test('renderBlocking.recalculateStyle: surface page-level style recalculation work for browsertime HARs', t => {
+  const pages = har.pagesFromTestHar(
+    'sitespeed/browsertime-recalculate-style.har'
+  );
+  const rb = pages[0].renderBlocking;
+  t.is(typeof rb, 'object');
+  t.not(rb, null);
+  t.is(typeof rb.recalculateStyle, 'object');
+  t.is(typeof rb.recalculateStyle.beforeFCP, 'object');
+  t.is(typeof rb.recalculateStyle.beforeLCP, 'object');
+  t.is(typeof rb.recalculateStyle.beforeFCP.elements, 'number');
+  t.is(typeof rb.recalculateStyle.beforeFCP.durationInMillis, 'number');
+  t.is(typeof rb.recalculateStyle.beforeLCP.elements, 'number');
+  t.is(typeof rb.recalculateStyle.beforeLCP.durationInMillis, 'number');
+});
 
-  it('should leave renderBlocking alone for HARs without _renderBlocking', function() {
-    // The Aftonbladet HAR is a plain (non-browsertime, non-WPT) HAR
-    // with no _renderBlocking field on the page — recalculateStyle
-    // should not get fabricated for it.
-    return har.pagesFromTestHar('aftonbladet.se-redirecting-to-www.har')
-      .then(pages => {
-        if (pages[0].renderBlocking) {
-          assert.isUndefined(pages[0].renderBlocking.recalculateStyle);
-        }
-      });
-  });
+test('renderBlocking.recalculateStyle: leave renderBlocking alone for HARs without _renderBlocking', t => {
+  // The Aftonbladet HAR is a plain (non-browsertime, non-WPT) HAR
+  // with no _renderBlocking field on the page — recalculateStyle
+  // should not get fabricated for it.
+  const pages = har.pagesFromTestHar('aftonbladet.se-redirecting-to-www.har');
+  if (pages[0].renderBlocking) {
+    t.is(pages[0].renderBlocking.recalculateStyle, undefined);
+  } else {
+    t.pass();
+  }
 });

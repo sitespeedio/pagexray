@@ -124,5 +124,15 @@ describe('headers', function() {
       const expires = headers.getExpires(responseHeaders);
       assert.isTrue(expires < 0);
     });
+    it('should parse case-insensitive max-age (RFC 7234 §5.2)', () => {
+      const responseHeaders = {'cache-control': ['Max-Age=42']};
+      const expires = headers.getExpires(responseHeaders);
+      assert.equal(expires, 42);
+    });
+    it('should respect case-insensitive no-cache', () => {
+      const responseHeaders = {'cache-control': ['No-Cache, Max-Age=42']};
+      const expires = headers.getExpires(responseHeaders);
+      assert.equal(expires, 0);
+    });
   });
 });

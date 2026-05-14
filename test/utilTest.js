@@ -81,6 +81,24 @@ describe('util', function() {
           const result = util.getDocumentRequests(har.log.entries, firstRequest.pageref);
           assert(result.length, 1, 'Incorrectly parsed redirects');
         });
-    })
-  })
+    });
+
+    it('should return an empty array when no entries match the pageref', () => {
+      // Previously this threw "Cannot read properties of undefined (reading 'response')"
+      // when a HAR contained a page whose pageref didn't appear in log.entries.
+      const result = util.getDocumentRequests([], 'page_0');
+      assert.deepEqual(result, []);
+    });
+  });
+
+  describe('#getConnectionType', () => {
+    it('should detect HTTP/3 from the canonical string', () => {
+      // Some HARs report the version as 'HTTP/3' / 'HTTP/3.0' rather than the
+      // lowercase 'h3' shorthand. Both should map to 'h3'.
+      assert.equal(util.getConnectionType('HTTP/3'), 'h3');
+      assert.equal(util.getConnectionType('HTTP/3.0'), 'h3');
+      assert.equal(util.getConnectionType('h3'), 'h3');
+      assert.equal(util.getConnectionType('h3-29'), 'h3');
+    });
+  });
 });

@@ -35,6 +35,11 @@ And if you want to get info per request/response:
 pagexray --includeAssets /path/to/my.har
 ```
 
+If you want to classify first vs. third party requests yourself, pass a regex that matches your first-party hostnames:
+```bash
+pagexray --firstParty '.*sitespeed.*' /path/to/my.har
+```
+
 If you want to use it in node, use it like this:
 ```node
 const fs = require("fs");
@@ -42,13 +47,13 @@ const pagexray = require("pagexray");
 const har = JSON.parse(fs.readFileSync("/path/to/my.har"));
 
 const pages = pagexray.convert(har);
-// Or ofyou want to include the each asset information
+// Or if you want to include the per-asset information
 // const pages = pagexray.convert(har, {includeAssets: true});
 
 console.log(pages)
 ```
 ## Using in your browser
-Include the latest pagexray.min.js (that you find in the relases) on your page. PageXray is exposed as *window.PageXray*
+Include the latest pagexray.min.js (that you find in the releases) on your page. PageXray is exposed as *window.PageXray*
 
 ```javascript
 const pageXray = window.PageXray.convert(har);
@@ -155,13 +160,9 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
       "total": 7334359,
       "values": 10
     },
-    "cookieStats": {
-      "min": 0,
-      "median": 0,
-      "max": 0,
-      "total": 0,
-      "values": 10
-    },
+    "cookies": 0,
+    "cookieNames": [],
+    "cookieNamesThirdParties": [],
     "totalDomains": 1,
     "visualMetrics": {
       "FirstVisualChange": 617,
@@ -181,3 +182,14 @@ All sizes are in bytes. Expires and timeSinceLastModified are in seconds.
 ]
 
 ```
+
+### Additional fields
+
+Depending on the HAR you feed in, the page object may also include:
+
+ * `fullyLoaded` — milliseconds from page start to the last asset finishing.
+ * `afterOnLoad` / `afterOnContentLoad` — request count, transfer size and content-type breakdown for assets fetched after `load` / `DOMContentLoaded`.
+ * `renderBlocking` — counts of `blocking`, `potentiallyBlocking` and `in_body_parser_blocking` assets (Chrome 92+). On sitespeed.io/browsertime HARs it also carries `recalculateStyle.beforeFCP` / `.beforeLCP` (elements touched + duration) for style-recalc work before each paint milestone.
+ * `googleWebVitals` — Core Web Vitals captured by sitespeed.io/browsertime.
+ * `cpu` — CPU events captured by sitespeed.io/browsertime or WebPageTest.
+ * `firstPartyRegEx` — the regex that was used to split first vs. third party (either the one you passed via `--firstParty` / `config.firstParty`, or the one auto-derived from the base domain).

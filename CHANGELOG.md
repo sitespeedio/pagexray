@@ -13,6 +13,8 @@
 ### Changed
 * `defaultContentTypes` now includes `favicon` so every page has a consistent shape (matches the example in the README).
 * `xml` is now considered for `missingCompression` reporting.
+* Mocha configuration moved from the deprecated `test/mocha.opts` to `.mocharc.json` so newer Mocha versions keep working.
+* `engines.node` bumped from `>=8.9.0` to `>=20.0.0`. Everything older is past Node.js EOL.
 
 ## 4.5.0 2026-05-12
 ### Added

@@ -135,4 +135,25 @@ describe('headers', function() {
       assert.equal(expires, 0);
     });
   });
+
+  describe('#getThirdPartyCookieNames', () => {
+    it('should match the Domain= attribute case-insensitively', () => {
+      // RFC 6265 §5.2: attribute names are case-insensitive. The previous
+      // implementation split on the literal string "Domain=" and missed
+      // cookies that used lowercase `domain=`.
+      const harHeaders = [
+        {name: 'Set-Cookie', value: 'sid=abc; domain=.tracker.io; Path=/'}
+      ];
+      const result = headers.getThirdPartyCookieNames(harHeaders, '.*sitespeed.*');
+      assert.deepEqual(result, [{name: 'sid', domain: '.tracker.io'}]);
+    });
+
+    it('should not flag a cookie when the domain matches the first-party regex', () => {
+      const harHeaders = [
+        {name: 'Set-Cookie', value: 'sid=abc; Domain=.sitespeed.io; Path=/'}
+      ];
+      const result = headers.getThirdPartyCookieNames(harHeaders, '.*sitespeed.*');
+      assert.deepEqual(result, []);
+    });
+  });
 });

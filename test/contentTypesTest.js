@@ -41,4 +41,28 @@ describe('Check content types', function() {
         assert.strictEqual(types.font.requests, 8, 'We couldnt get the right number of fonts');
       });
   });
+
+  it('should always include favicon in the default content type shape', function() {
+    // Pages without a favicon used to omit the field entirely, which
+    // forced consumers to special-case it. The default shape now
+    // matches the README example.
+    return har.pagesFromTestHar('contentTypes/linkedin.har')
+      .then((result) => {
+        const types = result[0].contentTypes;
+        assert.ok('favicon' in types, 'favicon default missing');
+        assert.strictEqual(types.favicon.requests, 0);
+      });
+  });
+
+  it('should not over-report missingCompression for gzipped assets', function() {
+    // Regression: headers.flatten wraps values in arrays, so the
+    // string comparison in missingCompression never matched and every
+    // large text asset was flagged. The aftonbladet HAR is gzipped
+    // throughout — only a couple of assets should remain.
+    return har.pagesFromTestHar('contentTypes/aftonbladet.se.har')
+      .then((result) => {
+        assert.ok(result[0].missingCompression < 5,
+          'missingCompression should be near 0 on a gzipped page, got ' + result[0].missingCompression);
+      });
+  });
 });

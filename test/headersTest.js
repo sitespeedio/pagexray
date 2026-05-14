@@ -124,3 +124,19 @@ test('getThirdPartyCookieNames: skip cookies whose domain matches first-party', 
     []
   );
 });
+
+test('getThirdPartyCookieNames: do not let a newline-joined cookie leak into the domain', t => {
+  // Some HARs concatenate two Set-Cookie headers into a single value
+  // joined by '\n'. The captured Domain= attribute must stop at the
+  // newline rather than swallowing the next cookie's name.
+  const harHeaders = [
+    {
+      name: 'Set-Cookie',
+      value: 'UID=abc; Domain=.scorecardresearch.com\nUIDR=1453756870'
+    }
+  ];
+  t.deepEqual(
+    headers.getThirdPartyCookieNames(harHeaders, '.*sitespeed.*'),
+    [{name: 'UID', domain: '.scorecardresearch.com'}]
+  );
+});

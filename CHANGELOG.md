@@ -1,5 +1,9 @@
 # CHANGELOG - PageXray
 
+## Unreleased
+### Fixed
+* Stop the next cookie's name leaking into a `Domain=` attribute when a HAR concatenates multiple `Set-Cookie` response headers into one value joined by `\n`. The captured domain now stops at the newline.
+
 ## 5.0.0 - 2026-05-14
 
 ### Changed

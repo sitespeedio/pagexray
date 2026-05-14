@@ -1,68 +1,59 @@
 'use strict';
-let assert = require('assert');
-let har = require('./helpers/har');
 
+const test = require('ava');
+const har = require('./helpers/har');
 
-describe('Check content types', function() {
-  it('should be able to identify the number of content types', function() {
-    return har.pagesFromTestHar('contentTypes/linkedin.har')
-      .then((result) => {
-        const types = result[0].contentTypes;
-        assert.strictEqual(types.html.requests, 1, 'We couldnt get the right number of html');
-        assert.strictEqual(types.javascript.requests, 8, 'We couldnt get the right number of javascript');
-        assert.strictEqual(types.css.requests, 2, 'We couldnt get the right number of css');
-        assert.strictEqual(types.image.requests, 5, 'We couldnt get the right number of image');
-        assert.strictEqual(types.xml.requests, 1, 'We couldnt get the right number of xml');
-      });
-  });
+test('Content types: identify the number of content types', t => {
+  const types = har.pagesFromTestHar('contentTypes/linkedin.har')[0]
+    .contentTypes;
+  t.is(types.html.requests, 1, 'html');
+  t.is(types.javascript.requests, 8, 'javascript');
+  t.is(types.css.requests, 2, 'css');
+  t.is(types.image.requests, 5, 'image');
+  t.is(types.xml.requests, 1, 'xml');
+});
 
-  it('should be able to identify the number of content types (part 2)', function() {
-    return har.pagesFromTestHar('contentTypes/aftonbladet.se.har')
-      .then((result) => {
-        const types = result[0].contentTypes;
-        assert.strictEqual(types.html.requests, 8, 'We couldnt get the right number of html');
-        assert.strictEqual(types.javascript.requests, 31, 'We couldnt get the right number of javscript');
-        assert.strictEqual(types.css.requests, 4, 'We couldnt get the right number of css');
-        assert.strictEqual(types.image.requests, 94, 'We couldnt get the right number of image');
-        assert.strictEqual(types.font.requests, 3, 'We couldnt get the right number of fonts');
-        assert.strictEqual(types.json.requests, 3, 'We couldnt get the right number of json');
-        assert.strictEqual(types.svg.requests, 2, 'We couldnt get the right number of svg');
-        assert.strictEqual(types.plain.requests, 2, 'We couldnt get the right number of plain');
-        assert.strictEqual(types.favicon.requests, 1, 'We couldnt get the right number of favicons');
-        assert.strictEqual(types.xml.requests, 1, 'We couldnt get the right number of xml');
-        assert.strictEqual(types.other.requests, 21, 'We couldnt get the right number of other');
-      });
-  });
+test('Content types: identify the number of content types (part 2)', t => {
+  const types = har.pagesFromTestHar('contentTypes/aftonbladet.se.har')[0]
+    .contentTypes;
+  t.is(types.html.requests, 8, 'html');
+  t.is(types.javascript.requests, 31, 'javascript');
+  t.is(types.css.requests, 4, 'css');
+  t.is(types.image.requests, 94, 'image');
+  t.is(types.font.requests, 3, 'font');
+  t.is(types.json.requests, 3, 'json');
+  t.is(types.svg.requests, 2, 'svg');
+  t.is(types.plain.requests, 2, 'plain');
+  t.is(types.favicon.requests, 1, 'favicon');
+  t.is(types.xml.requests, 1, 'xml');
+  t.is(types.other.requests, 21, 'other');
+});
 
-  it('should be able to fallback to file endings', function() {
-    return har.pagesFromTestHar('contentTypes/ferguson.har')
-      .then((result) => {
-        const types = result[0].contentTypes;
-        assert.strictEqual(types.font.requests, 8, 'We couldnt get the right number of fonts');
-      });
-  });
+test('Content types: fall back to file endings', t => {
+  const types = har.pagesFromTestHar('contentTypes/ferguson.har')[0]
+    .contentTypes;
+  t.is(types.font.requests, 8);
+});
 
-  it('should always include favicon in the default content type shape', function() {
-    // Pages without a favicon used to omit the field entirely, which
-    // forced consumers to special-case it. The default shape now
-    // matches the README example.
-    return har.pagesFromTestHar('contentTypes/linkedin.har')
-      .then((result) => {
-        const types = result[0].contentTypes;
-        assert.ok('favicon' in types, 'favicon default missing');
-        assert.strictEqual(types.favicon.requests, 0);
-      });
-  });
+test('Content types: favicon is always in the default content type shape', t => {
+  // Pages without a favicon used to omit the field entirely, which
+  // forced consumers to special-case it. The default shape now
+  // matches the README example.
+  const types = har.pagesFromTestHar('contentTypes/linkedin.har')[0]
+    .contentTypes;
+  t.true('favicon' in types, 'favicon default missing');
+  t.is(types.favicon.requests, 0);
+});
 
-  it('should not over-report missingCompression for gzipped assets', function() {
-    // Regression: headers.flatten wraps values in arrays, so the
-    // string comparison in missingCompression never matched and every
-    // large text asset was flagged. The aftonbladet HAR is gzipped
-    // throughout — only a couple of assets should remain.
-    return har.pagesFromTestHar('contentTypes/aftonbladet.se.har')
-      .then((result) => {
-        assert.ok(result[0].missingCompression < 5,
-          'missingCompression should be near 0 on a gzipped page, got ' + result[0].missingCompression);
-      });
-  });
+test('Content types: missingCompression is not over-reported for gzipped assets', t => {
+  // Regression: headers.flatten wraps values in arrays, so the
+  // string comparison in missingCompression never matched and every
+  // large text asset was flagged. The aftonbladet HAR is gzipped
+  // throughout — only a couple of assets should remain.
+  const result = har.pagesFromTestHar('contentTypes/aftonbladet.se.har');
+  t.true(
+    result[0].missingCompression < 5,
+    'missingCompression should be near 0 on a gzipped page, got ' +
+      result[0].missingCompression
+  );
 });

@@ -1,16 +1,12 @@
 'use strict';
-let assert = require('assert'),
-  pluck = require('lodash.pluck'),
-  har = require('./helpers/har');
 
-describe('Converting URLs', function() {
-  it('Should convert urls', function() {
-    return har.pagesFromTestHar('www.nytimes.com.har').then(result => {
-      const exectedUrls = [
-        'http://www.nytimes.com/',
-        'http://www.nytimes.com/'
-      ];
-      assert.deepEqual(pluck(result, 'url'), exectedUrls);
-    });
-  });
+const test = require('ava');
+const har = require('./helpers/har');
+
+test('Converting URLs: should convert urls', t => {
+  const result = har.pagesFromTestHar('www.nytimes.com.har');
+  t.deepEqual(
+    result.map(r => r.url),
+    ['http://www.nytimes.com/', 'http://www.nytimes.com/']
+  );
 });

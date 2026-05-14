@@ -1,37 +1,25 @@
 'use strict';
-let assert = require('assert');
-let har = require('./helpers/har');
 
+const test = require('ava');
+const har = require('./helpers/har');
 
-describe('Verify different sizes', function() {
+test('Sizes: total contentSize should not be minus values', t => {
+  const result = har.pagesFromTestHar('size/minusSizeForContentFirefox.har');
+  t.true(result[0].contentSize > 0);
+});
 
-  it('Total contentSize should not be minus values', function() {
-    return har.pagesFromTestHar('size/minusSizeForContentFirefox.har')
-      .then((result) => {
-        assert.strictEqual(result[0].contentSize > 0, true);
-      });
-  });
+test('Sizes: total contentSize should be right', t => {
+  // yep it's true, I used Google to calculate the size
+  const result = har.pagesFromTestHar('size/allSizes.har');
+  t.is(result[0].contentSize, 102069);
+});
 
-  it('Total contentSize should right', function() {
-    return har.pagesFromTestHar('size/allSizes.har')
-      .then((result) => {
-        // yep it's true, I used Google to calculate the size
-        assert.strictEqual(result[0].contentSize, 102069);
-      });
-  });
+test('Sizes: total transferSize should be right', t => {
+  const result = har.pagesFromTestHar('size/allSizes.har');
+  t.is(result[0].transferSize, 102069);
+});
 
-  it('Total transferSize should right', function() {
-    return har.pagesFromTestHar('size/allSizes.har')
-      .then((result) => {
-        assert.strictEqual(result[0].transferSize, 102069);
-      });
-  });
-
-  it('Total headerSize should right', function() {
-    return har.pagesFromTestHar('size/allSizes.har')
-      .then((result) => {
-        assert.strictEqual(result[0].headerSize, 6480);
-      });
-  });
-
+test('Sizes: total headerSize should be right', t => {
+  const result = har.pagesFromTestHar('size/allSizes.har');
+  t.is(result[0].headerSize, 6480);
 });

@@ -1,117 +1,110 @@
 'use strict';
 
-const assert = require('chai').assert,
-  util = require('../lib/util'),
-  forEach = require('lodash.foreach'),
-  har = require('./helpers/har');
+const test = require('ava');
+const util = require('../lib/util');
+const har = require('./helpers/har');
 
-describe('util', function() {
+const typeToMimeMapping = {
+  html: ['text/html', 'text/html; charset=utf-8'],
+  plain: ['text/plain'],
+  javascript: ['text/javascript', 'application/x-javascript; charset=utf-8'],
+  css: ['text/css'],
+  image: ['image/png', 'image/jpg', 'image/gif', 'image/webp'],
+  svg: ['image/svg+xml'],
+  font: [
+    'application/font-woff',
+    'application/font-sfnt',
+    'application/x-font-opentype',
+    'application/x-font-ttf',
+    'application/vnd.ms-fontobject',
+    'application/x-font-ttf',
+    'application/x-font-opentype'
+  ],
+  flash: ['application/x-shockwave-flash'],
+  favicon: ['image/x-icon', 'image/vnd.microsoft.icon'],
+  other: ['application/my-own-type']
+};
 
-  describe('#getContentType', function() {
-    const typeToMimeMapping = {
-      'html': ['text/html', 'text/html; charset=utf-8'],
-      'plain': ['text/plain'],
-      'javascript': ['text/javascript', 'application/x-javascript; charset=utf-8'],
-      'css': ['text/css'],
-      'image': ['image/png', 'image/jpg', 'image/gif', 'image/webp'],
-      'svg': ['image/svg+xml'],
-      'font': ['application/font-woff', 'application/font-sfnt', 'application/x-font-opentype',
-        'application/x-font-ttf', 'application/vnd.ms-fontobject', 'application/x-font-ttf',
-        'application/x-font-opentype'
-      ],
-      'flash': ['application/x-shockwave-flash'],
-      'favicon': ['image/x-icon', 'image/vnd.microsoft.icon'],
-      'other': ['application/my-own-type']
-    };
-
-    forEach(typeToMimeMapping, function(mimes, type) {
-      forEach(mimes, function(mime) {
-        it('should categorize ' + mime + ' as ' + type, function() {
-          const result = util.getContentType(mime, 'https:/www.test.com/test.strange');
-          assert.equal(result, type);
-        });
-      });
+for (const [type, mimes] of Object.entries(typeToMimeMapping)) {
+  for (const mime of new Set(mimes)) {
+    test(`getContentType: categorize ${mime} as ${type}`, t => {
+      t.is(
+        util.getContentType(mime, 'https:/www.test.com/test.strange'),
+        type
+      );
     });
-  });
+  }
+}
 
-  describe('#getHostname', function() {
+test('getHostname: fetch the domain from a URL with a filename', t => {
+  t.is(
+    util.getHostname('https://www.sitespeed.io/with/a/path.jsp'),
+    'www.sitespeed.io'
+  );
+});
 
-    it('should fetch the domain from a URL with a filename', function() {
-      const result = util.getHostname('https://www.sitespeed.io/with/a/path.jsp');
-      assert.deepEqual(result, 'www.sitespeed.io');
-    });
+test('getHostname: fetch the domain from a URL with a query string', t => {
+  t.is(
+    util.getHostname('https://www.sitespeed.io/with/a/?apa=hepp&apa2=oj'),
+    'www.sitespeed.io'
+  );
+});
 
-    it('should fetch the domain from a URL with a query string', function() {
-      const result = util.getHostname('https://www.sitespeed.io/with/a/?apa=hepp&apa2=oj');
-      assert.deepEqual(result, 'www.sitespeed.io');
-    });
+test('getHostname: fetch the domain from a URL with #', t => {
+  t.is(
+    util.getHostname('http://www.sitespeed.io/with/a/?apa=hepp&apa2=oj#yes'),
+    'www.sitespeed.io'
+  );
+});
 
-    it('should fetch the domain from a URL with #', function() {
-      const result = util.getHostname('http://www.sitespeed.io/with/a/?apa=hepp&apa2=oj#yes');
-      assert.deepEqual(result, 'www.sitespeed.io');
-    });
+test('getHostname: fetch the domain from a URL with only the domain', t => {
+  t.is(util.getHostname('http://www.sitespeed.io'), 'www.sitespeed.io');
+});
 
-    it('should fetch the domain from a URL with only the domain', function() {
-      const result = util.getHostname('http://www.sitespeed.io');
-      assert.deepEqual(result, 'www.sitespeed.io');
-    });
+test('getHostname: fetch the domain from a URL without a sub domain', t => {
+  t.is(util.getHostname('http://sitespeed.io'), 'sitespeed.io');
+});
 
-    it('should fetch the domain from a URL without a sub domain', function() {
-      const result = util.getHostname('http://sitespeed.io');
-      assert.deepEqual(result, 'sitespeed.io');
-    });
+test('getHostname: empty if missing', t => {
+  t.is(util.getHostname('hoppla'), '');
+});
 
-    it('the domain should be empty if it is missing', function() {
-      const result = util.getHostname('hoppla');
-      assert.deepEqual(result, '');
-    });
+test('getHostname: empty if undefined', t => {
+  t.is(util.getHostname(), '');
+});
 
-    it('the domain should be empty if it is undefined', function() {
-      const result = util.getHostname();
-      assert.deepEqual(result, '');
-    });
+test('getDocumentRequests: should not report redirects when none exist', t => {
+  const harFile = har.parseTestHar('domains/run.sitespeed.io.har');
+  const firstRequest = harFile.log.entries[0];
+  const result = util.getDocumentRequests(
+    harFile.log.entries,
+    firstRequest.pageref
+  );
+  t.is(result.length, 1);
+});
 
-  });
+test('getDocumentRequests: return empty array when no entries match the pageref', t => {
+  // Previously this threw "Cannot read properties of undefined (reading 'response')"
+  // when a HAR contained a page whose pageref didn't appear in log.entries.
+  t.deepEqual(util.getDocumentRequests([], 'page_0'), []);
+});
 
-  describe('#getDocumentRequests', () => {
-    it('should not report redirects when non exist', () => {
-      return har.parseTestHar('domains/run.sitespeed.io.har')
-        .then((har) => {
-          const firstRequest = har.log.entries[0];
-          const result = util.getDocumentRequests(har.log.entries, firstRequest.pageref);
-          assert(result.length, 1, 'Incorrectly parsed redirects');
-        });
-    });
+test('getConnectionType: detect HTTP/3 from the canonical string', t => {
+  // Some HARs report the version as 'HTTP/3' / 'HTTP/3.0' rather than the
+  // lowercase 'h3' shorthand. Both should map to 'h3'.
+  t.is(util.getConnectionType('HTTP/3'), 'h3');
+  t.is(util.getConnectionType('HTTP/3.0'), 'h3');
+  t.is(util.getConnectionType('h3'), 'h3');
+  t.is(util.getConnectionType('h3-29'), 'h3');
+});
 
-    it('should return an empty array when no entries match the pageref', () => {
-      // Previously this threw "Cannot read properties of undefined (reading 'response')"
-      // when a HAR contained a page whose pageref didn't appear in log.entries.
-      const result = util.getDocumentRequests([], 'page_0');
-      assert.deepEqual(result, []);
-    });
-  });
-
-  describe('#getConnectionType', () => {
-    it('should detect HTTP/3 from the canonical string', () => {
-      // Some HARs report the version as 'HTTP/3' / 'HTTP/3.0' rather than the
-      // lowercase 'h3' shorthand. Both should map to 'h3'.
-      assert.equal(util.getConnectionType('HTTP/3'), 'h3');
-      assert.equal(util.getConnectionType('HTTP/3.0'), 'h3');
-      assert.equal(util.getConnectionType('h3'), 'h3');
-      assert.equal(util.getConnectionType('h3-29'), 'h3');
-    });
-  });
-
-  describe('#getMainDomain', () => {
-    it('should peel off two-label public suffixes beyond .co.uk', () => {
-      // Previously only `.co.uk` was recognised, so `bbc.com.br` collapsed
-      // to `com` and the auto-firstParty regex pulled in unrelated sites.
-      assert.equal(util.getMainDomain('www.bbc.co.uk'), 'bbc');
-      assert.equal(util.getMainDomain('www.bbc.com.br'), 'bbc');
-      assert.equal(util.getMainDomain('www.bbc.co.jp'), 'bbc');
-      assert.equal(util.getMainDomain('www.bbc.com.au'), 'bbc');
-      assert.equal(util.getMainDomain('www.bbc.com'), 'bbc');
-      assert.equal(util.getMainDomain('sitespeed.io'), 'sitespeed');
-    });
-  });
+test('getMainDomain: peel off two-label public suffixes beyond .co.uk', t => {
+  // Previously only `.co.uk` was recognised, so `bbc.com.br` collapsed
+  // to `com` and the auto-firstParty regex pulled in unrelated sites.
+  t.is(util.getMainDomain('www.bbc.co.uk'), 'bbc');
+  t.is(util.getMainDomain('www.bbc.com.br'), 'bbc');
+  t.is(util.getMainDomain('www.bbc.co.jp'), 'bbc');
+  t.is(util.getMainDomain('www.bbc.com.au'), 'bbc');
+  t.is(util.getMainDomain('www.bbc.com'), 'bbc');
+  t.is(util.getMainDomain('sitespeed.io'), 'sitespeed');
 });

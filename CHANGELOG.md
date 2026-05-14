@@ -13,8 +13,10 @@
 ### Changed
 * `defaultContentTypes` now includes `favicon` so every page has a consistent shape (matches the example in the README).
 * `xml` is now considered for `missingCompression` reporting.
-* Mocha configuration moved from the deprecated `test/mocha.opts` to `.mocharc.json` so newer Mocha versions keep working.
-* `engines.node` bumped from `>=8.9.0` to `>=20.0.0`. Everything older is past Node.js EOL.
+* `engines.node` bumped from `>=8.9.0` to `>=22.0.0` (the current Node.js LTS).
+* Test runner switched from Mocha + Chai to AVA, matching the rest of the sitespeed.io / browsertime ecosystem. The `.mocharc.json` is gone and the test helpers no longer depend on bluebird or lodash.
+* ESLint upgraded from 8 to 9 with the new flat config (`eslint.config.js` replaces `.eslintrc.json` and `.eslintignore`).
+* All devDependencies bumped to current major versions: prettier 3, browserify 17, browserify-banner 2, @babel/core + preset-env 7.29, jsdoc 4. The abandoned `uglify-es` is replaced by `terser`, and `mkdirp` is dropped in favour of native `fs.mkdirSync({recursive:true})` in the browserify script.
 
 ### Added
 * CLI can now read a HAR from stdin: `pagexray -` or piping into `pagexray` with no path argument.

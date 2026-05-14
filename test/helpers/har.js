@@ -1,20 +1,19 @@
 'use strict';
 
-const fs = require('fs'),
-  Promise = require('bluebird'),
-  path = require('path'),
-  hartopage = require('../../lib/index');
+const fs = require('fs');
+const path = require('path');
+const pagexray = require('../../lib/index');
 
-Promise.promisifyAll(fs);
+function parseTestHar(relativePath) {
+  const harPath = path.resolve(__dirname, '..', 'files', relativePath);
+  return JSON.parse(fs.readFileSync(harPath, 'utf8'));
+}
+
+function pagesFromTestHar(relativePath) {
+  return pagexray.convert(parseTestHar(relativePath));
+}
 
 module.exports = {
-  parseTestHar(relativePath) {
-    const harPath = path.resolve(__dirname, '..', 'files', relativePath);
-    return fs.readFileAsync(harPath)
-      .then(JSON.parse);
-  },
-  pagesFromTestHar(relativePath) {
-    return this.parseTestHar(relativePath)
-      .then(hartopage.convert);
-  }
+  parseTestHar,
+  pagesFromTestHar
 };

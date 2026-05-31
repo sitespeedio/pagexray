@@ -125,6 +125,17 @@ test('getThirdPartyCookieNames: skip cookies whose domain matches first-party', 
   );
 });
 
+test('getCookieNames: capture every cookie when Set-Cookie values are newline-joined', t => {
+  // Mirrors the getThirdPartyCookieNames newline fix: some HARs
+  // concatenate multiple Set-Cookie response headers into one value
+  // joined by '\n'. Splitting on '=' alone would only return the first
+  // cookie's name and under-count page.cookies.
+  const harHeaders = [
+    {name: 'Set-Cookie', value: 'UID=abc; Domain=.example.com\nUIDR=1453756870'}
+  ];
+  t.deepEqual(headers.getCookieNames(harHeaders), ['UID', 'UIDR']);
+});
+
 test('getThirdPartyCookieNames: do not let a newline-joined cookie leak into the domain', t => {
   // Some HARs concatenate two Set-Cookie headers into a single value
   // joined by '\n'. The captured Domain= attribute must stop at the

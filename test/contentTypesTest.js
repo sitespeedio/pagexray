@@ -32,7 +32,8 @@ test('Content types: identify the number of content types (part 2)', t => {
 test('Content types: fall back to file endings', t => {
   const types = har.pagesFromTestHar('contentTypes/ferguson.har')[0]
     .contentTypes;
-  t.is(types.font.requests, 8);
+  // Two of the ten fonts have a query string (FergusonIcomoon.ttf?ut5maa)
+  t.is(types.font.requests, 10);
 });
 
 test('Content types: favicon is always in the default content type shape', t => {

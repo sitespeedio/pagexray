@@ -6,6 +6,8 @@
 * Each page in a HAR now gets its own default first party. The default was made from the first page only, so in a HAR with pages on different sites (a sitespeed.io user journey, or several URLs in one Browsertime run) every request on the other sites was counted as third party.
 * A page on an IP address now has only that address as first party. The default regex for `127.0.0.1` was `.*0.*`, which matched every host with a 0 in the name.
 * Every cookie in a newline-joined `Set-Cookie` value is now checked for a third party domain, not only the first one.
+* A size of -1 in the HAR (a size that the browser does not know, for example the header size for HTTP/2 and HTTP/3 in Chrome) is no longer subtracted from the totals. The first party, third party and domain header sizes were negative for Chrome.
+* The cache time from `Expires` is now counted from the `Date` header of the response, not from when PageXray runs, so an old HAR gives the same result. An `Expires` date in the past gives 0 (the response is stale) instead of a negative time, and `Expires` is also used when `Cache-Control` has no `max-age`. A response with more than one `Cache-Control` header is read in full.
 
 ## 5.0.0 - 2026-05-14
 

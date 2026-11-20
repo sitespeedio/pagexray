@@ -90,8 +90,46 @@ test('getExpires: handle numeric expires header (nytimes.com)', t => {
   t.is(headers.getExpires({expires: ['0']}), 0);
 });
 
-test('getExpires: parse valid expires header', t => {
-  t.true(headers.getExpires({expires: ['Wed, 26 Aug 2015 12:37:50 GMT']}) < 0);
+test('getExpires: an expires date in the past is 0', t => {
+  t.is(headers.getExpires({expires: ['Wed, 26 Aug 2015 12:37:50 GMT']}), 0);
+});
+
+test('getExpires: count expires from the date of the response', t => {
+  // An old HAR gave a large negative time, because the time was counted
+  // from now and not from when the response was sent.
+  t.is(
+    headers.getExpires({
+      date: ['Mon, 01 Jan 2024 00:00:00 GMT'],
+      expires: ['Mon, 01 Jan 2024 01:00:00 GMT']
+    }),
+    3600
+  );
+});
+
+test('getExpires: use expires when cache-control has no max-age', t => {
+  t.is(
+    headers.getExpires({
+      'cache-control': ['public'],
+      date: ['Mon, 01 Jan 2024 00:00:00 GMT'],
+      expires: ['Mon, 01 Jan 2024 01:00:00 GMT']
+    }),
+    3600
+  );
+});
+
+test('getExpires: max-age wins over expires', t => {
+  t.is(
+    headers.getExpires({
+      'cache-control': ['max-age=60'],
+      date: ['Mon, 01 Jan 2024 00:00:00 GMT'],
+      expires: ['Mon, 01 Jan 2024 01:00:00 GMT']
+    }),
+    60
+  );
+});
+
+test('getExpires: read every cache-control header', t => {
+  t.is(headers.getExpires({'cache-control': ['public', 'max-age=60']}), 60);
 });
 
 test('getExpires: parse case-insensitive max-age (RFC 7234 §5.2)', t => {

@@ -3,6 +3,8 @@
 ## Unreleased
 ### Fixed
 * Stop the next cookie's name leaking into a `Domain=` attribute when a HAR concatenates multiple `Set-Cookie` response headers into one value joined by `\n`. The captured domain now stops at the newline.
+* A size of -1 in the HAR (a size that the browser does not know, for example the header size for HTTP/2 and HTTP/3 in Chrome) is no longer subtracted from the totals. The first party, third party and domain header sizes were negative for Chrome.
+* The cache time from `Expires` is now counted from the `Date` header of the response, not from when PageXray runs, so an old HAR gives the same result. An `Expires` date in the past gives 0 (the response is stale) instead of a negative time, and `Expires` is also used when `Cache-Control` has no `max-age`. A response with more than one `Cache-Control` header is read in full.
 
 ## 5.0.0 - 2026-05-14
 

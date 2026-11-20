@@ -189,3 +189,17 @@ test('getThirdPartyCookieNames: do not let a newline-joined cookie leak into the
     [{name: 'UID', domain: '.scorecardresearch.com'}]
   );
 });
+
+test('getThirdPartyCookieNames: check every cookie when Set-Cookie values are newline-joined', t => {
+  // Only the first cookie of a joined value was checked, so a third
+  // party cookie after a first party cookie was missed.
+  const harHeaders = [
+    {
+      name: 'Set-Cookie',
+      value: 'a=1; Domain=.sitespeed.io\nb=2; Domain=.tracker.io'
+    }
+  ];
+  t.deepEqual(headers.getThirdPartyCookieNames(harHeaders, '.*sitespeed.*'), [
+    {name: 'b', domain: '.tracker.io'}
+  ]);
+});

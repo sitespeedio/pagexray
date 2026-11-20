@@ -2,19 +2,20 @@
 
 ## Unreleased
 ### Changed
-* PageXray has no dependencies any more: the command line uses `util.parseArgs` from Node.js instead of `minimist`. An unknown option now gives an error instead of being ignored.
-* The browser version (`npm run dist`, used by compare.sitespeed.io) is now built with esbuild instead of browserify, Babel and Terser. That removes about 330 development packages, and *pagexray.min.js* is 11 kB instead of 17 kB. It still works as a global `PageXray` and as a CommonJS module.
+* PageXray has no dependencies any more: the command line uses `util.parseArgs` from Node.js instead of `minimist`. An unknown option now gives an error instead of being ignored. [#140](https://github.com/sitespeedio/pagexray/pull/140)
+* The browser version (`npm run dist`, used by compare.sitespeed.io) is now built with esbuild instead of browserify, Babel and Terser. That removes about 330 development packages, and *pagexray.min.js* is 11 kB instead of 17 kB. It still works as a global `PageXray` and as a CommonJS module. [#140](https://github.com/sitespeedio/pagexray/pull/140)
 
 ### Fixed
-* Stop the next cookie's name leaking into a `Domain=` attribute when a HAR concatenates multiple `Set-Cookie` response headers into one value joined by `\n`. The captured domain now stops at the newline.
-* Each page in a HAR now gets its own default first party. The default was made from the first page only, so in a HAR with pages on different sites (a sitespeed.io user journey, or several URLs in one Browsertime run) every request on the other sites was counted as third party.
-* A page on an IP address now has only that address as first party. The default regex for `127.0.0.1` was `.*0.*`, which matched every host with a 0 in the name.
-* Every cookie in a newline-joined `Set-Cookie` value is now checked for a third party domain, not only the first one.
-* A size of -1 in the HAR (a size that the browser does not know, for example the header size for HTTP/2 and HTTP/3 in Chrome) is no longer subtracted from the totals. The first party, third party and domain header sizes were negative for Chrome.
-* The cache time from `Expires` is now counted from the `Date` header of the response, not from when PageXray runs, so an old HAR gives the same result. An `Expires` date in the past gives 0 (the response is stale) instead of a negative time, and `Expires` is also used when `Cache-Control` has no `max-age`. A response with more than one `Cache-Control` header is read in full.
-* A HAR without `pages` (the field is optional in the HAR format) or with an empty `pages` list crashed. All requests are now one page.
-* `HTTP/2`, the version string that Firefox and other tools write, is now `h2`. It was classified as `h1`. HTTP/3 is now called `HTTP/3` in `httpVersion`, like `HTTP/2.0`; before it was `H3`.
-* Fonts with a query string in the URL, like `font.woff2?v=4`, and `.otf` fonts are now found from the file name when the server sends them as `application/octet-stream`. They were counted as `other`.
+* Stop the next cookie's name leaking into a `Domain=` attribute when a HAR concatenates multiple `Set-Cookie` response headers into one value joined by `\n`. The captured domain now stops at the newline. [#135](https://github.com/sitespeedio/pagexray/pull/135)
+* The default first party regex for Wikipedia had an empty alternative (`.*wikipedia.*||.*wikimedia.*`), so it matched every URL and every request on a Wikipedia page was first party. `page.cookies` also only counted the first cookie of a newline-joined `Set-Cookie` value [#136](https://github.com/sitespeedio/pagexray/pull/136).
+* Each page in a HAR now gets its own default first party. The default was made from the first page only, so in a HAR with pages on different sites (a sitespeed.io user journey, or several URLs in one Browsertime run) every request on the other sites was counted as third party. [#137](https://github.com/sitespeedio/pagexray/pull/137)
+* A page on an IP address now has only that address as first party. The default regex for `127.0.0.1` was `.*0.*`, which matched every host with a 0 in the name. [#137](https://github.com/sitespeedio/pagexray/pull/137)
+* Every cookie in a newline-joined `Set-Cookie` value is now checked for a third party domain, not only the first one. [#137](https://github.com/sitespeedio/pagexray/pull/137)
+* A size of -1 in the HAR (a size that the browser does not know, for example the header size for HTTP/2 and HTTP/3 in Chrome) is no longer subtracted from the totals. The first party, third party and domain header sizes were negative for Chrome. [#138](https://github.com/sitespeedio/pagexray/pull/138)
+* The cache time from `Expires` is now counted from the `Date` header of the response, not from when PageXray runs, so an old HAR gives the same result. An `Expires` date in the past gives 0 (the response is stale) instead of a negative time, and `Expires` is also used when `Cache-Control` has no `max-age`. A response with more than one `Cache-Control` header is read in full. [#138](https://github.com/sitespeedio/pagexray/pull/138)
+* A HAR without `pages` (the field is optional in the HAR format) or with an empty `pages` list crashed. All requests are now one page. [#139](https://github.com/sitespeedio/pagexray/pull/139)
+* `HTTP/2`, the version string that Firefox and other tools write, is now `h2`. It was classified as `h1`. HTTP/3 is now called `HTTP/3` in `httpVersion`, like `HTTP/2.0`; before it was `H3`. [#139](https://github.com/sitespeedio/pagexray/pull/139)
+* Fonts with a query string in the URL, like `font.woff2?v=4`, and `.otf` fonts are now found from the file name when the server sends them as `application/octet-stream`. They were counted as `other`. [#139](https://github.com/sitespeedio/pagexray/pull/139)
 
 ## 5.0.0 - 2026-05-14
 

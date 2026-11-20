@@ -4,12 +4,8 @@
 
 const pagexray = require('../lib/index');
 const fs = require('fs');
-const minimist = require('minimist');
+const { parseArgs } = require('util');
 const packageInfo = require('../package');
-
-const argv = minimist(process.argv.slice(2), {
-  boolean: ['pretty', 'includeAssets']
-});
 
 function readStdin() {
   return new Promise((resolve, reject) => {
@@ -25,6 +21,23 @@ function readStdin() {
 function fail(message) {
   process.stderr.write('pagexray: ' + message + '\n');
   process.exit(1);
+}
+
+let argv;
+try {
+  const { values, positionals } = parseArgs({
+    options: {
+      pretty: { type: 'boolean' },
+      includeAssets: { type: 'boolean' },
+      firstParty: { type: 'string' },
+      version: { type: 'boolean' },
+      help: { type: 'boolean' }
+    },
+    allowPositionals: true
+  });
+  argv = { ...values, _: positionals };
+} catch (e) {
+  fail(e.message);
 }
 
 function emit(pages) {

@@ -1,6 +1,10 @@
 # CHANGELOG - PageXray
 
 ## Unreleased
+### Changed
+* PageXray has no dependencies any more: the command line uses `util.parseArgs` from Node.js instead of `minimist`. An unknown option now gives an error instead of being ignored.
+* The browser version (`npm run dist`, used by compare.sitespeed.io) is now built with esbuild instead of browserify, Babel and Terser. That removes about 330 development packages, and *pagexray.min.js* is 11 kB instead of 17 kB. It still works as a global `PageXray` and as a CommonJS module.
+
 ### Fixed
 * Stop the next cookie's name leaking into a `Domain=` attribute when a HAR concatenates multiple `Set-Cookie` response headers into one value joined by `\n`. The captured domain now stops at the newline.
 * Each page in a HAR now gets its own default first party. The default was made from the first page only, so in a HAR with pages on different sites (a sitespeed.io user journey, or several URLs in one Browsertime run) every request on the other sites was counted as third party.

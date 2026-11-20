@@ -53,7 +53,7 @@ const pages = pagexray.convert(har);
 console.log(pages)
 ```
 ## Using in your browser
-Include the latest pagexray.min.js (that you find in the releases) on your page. PageXray is exposed as *window.PageXray*
+Build the browser version with `npm run dist`, and include *dist/pagexray.min.js* on your page. PageXray is exposed as *window.PageXray*. [compare.sitespeed.io](https://compare.sitespeed.io) uses it this way.
 
 ```javascript
 const pageXray = window.PageXray.convert(har);

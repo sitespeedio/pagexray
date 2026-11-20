@@ -3,6 +3,9 @@
 ## Unreleased
 ### Fixed
 * Stop the next cookie's name leaking into a `Domain=` attribute when a HAR concatenates multiple `Set-Cookie` response headers into one value joined by `\n`. The captured domain now stops at the newline.
+* A HAR without `pages` (the field is optional in the HAR format) or with an empty `pages` list crashed. All requests are now one page.
+* `HTTP/2`, the version string that Firefox and other tools write, is now `h2`. It was classified as `h1`. HTTP/3 is now called `HTTP/3` in `httpVersion`, like `HTTP/2.0`; before it was `H3`.
+* Fonts with a query string in the URL, like `font.woff2?v=4`, and `.otf` fonts are now found from the file name when the server sends them as `application/octet-stream`. They were counted as `other`.
 
 ## 5.0.0 - 2026-05-14
 

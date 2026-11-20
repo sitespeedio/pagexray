@@ -2,6 +2,7 @@
 
 const test = require('ava');
 const pagexray = require('../lib/index');
+const testHar = require('./helpers/har');
 
 function entry(url, mimeType) {
   return {
@@ -53,4 +54,43 @@ test('First party (wikipedia): non-wikipedia hosts must be classified as third p
   const page = pagexray.convert(har)[0];
   t.is(page.firstParty.requests, 2, 'wikipedia + wikimedia are first-party');
   t.is(page.thirdParty.requests, 1, 'google-analytics is third-party');
+});
+
+for (const browser of ['chrome', 'firefox']) {
+  test(`First party: each page in a ${browser} HAR uses its own site`, t => {
+    // The HAR has www.example.com and then www.sitespeed.io. The default
+    // first party regex was made from the first page only, so every
+    // request on the second page was counted as third party.
+    const pages = testHar.pagesFromTestHar(`browsertime/${browser}-two-sites.har`);
+    t.is(pages[0].firstPartyRegEx, '.*example.*');
+    t.is(pages[1].firstPartyRegEx, '.*sitespeed.*');
+    t.is(pages[1].firstParty.requests, pages[1].requests);
+    t.is(pages[1].thirdParty.requests, undefined);
+  });
+}
+
+test('First party: an IP address is only first party for that address', t => {
+  // The default regex for 127.0.0.1 was '.*0.*', which matched every
+  // host with a 0 in the name.
+  const har = {
+    log: {
+      creator: {name: 'Browsertime'},
+      pages: [
+        {
+          id: 'page_0',
+          startedDateTime: '2024-01-01T00:00:00.000Z',
+          pageTimings: {onLoad: 1000, onContentLoad: 800}
+        }
+      ],
+      entries: [
+        entry('http://127.0.0.1:3000/', 'text/html'),
+        entry('http://127.0.0.1:3000/app.js', 'application/javascript'),
+        entry('https://cdn10.example.com/lib.js', 'application/javascript')
+      ]
+    }
+  };
+  const page = pagexray.convert(har)[0];
+  t.is(page.firstPartyRegEx, '^127\\.0\\.0\\.1$');
+  t.is(page.firstParty.requests, 2);
+  t.is(page.thirdParty.requests, 1);
 });

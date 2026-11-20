@@ -108,3 +108,29 @@ test('getMainDomain: peel off two-label public suffixes beyond .co.uk', t => {
   t.is(util.getMainDomain('www.bbc.com'), 'bbc');
   t.is(util.getMainDomain('sitespeed.io'), 'sitespeed');
 });
+
+test('getConnectionType: detect HTTP/2 from Firefox', t => {
+  // Firefox writes HTTP/2, which was classified as h1.
+  t.is(util.getConnectionType('HTTP/2'), 'h2');
+  t.is(util.getHTTPVersion('HTTP/2'), 'HTTP/2.0');
+});
+
+test('getHTTPVersion: name HTTP/3 like HTTP/2', t => {
+  // Chrome writes h3, which became H3.
+  t.is(util.getHTTPVersion('h3'), 'HTTP/3');
+  t.is(util.getHTTPVersion('HTTP/3'), 'HTTP/3');
+});
+
+test('getContentType: find a font from the file name with a query string', t => {
+  t.is(
+    util.getContentType(
+      'application/octet-stream',
+      'https://www.test.com/fontawesome-webfont.woff2?v=4.7.0'
+    ),
+    'font'
+  );
+  t.is(
+    util.getContentType('application/octet-stream', 'https://www.test.com/a.otf'),
+    'font'
+  );
+});
